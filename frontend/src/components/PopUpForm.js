@@ -1,28 +1,41 @@
 import React from 'react';
-import { Modal, Form, Input} from 'antd';
+import { Button, Modal, Form, Input} from 'antd';
+import ButtonWithProgress from '../components/ButtonWithProgress';
 
 
 
-const PopUpForm = ({ visible, title, okText, label, name, onCreate, onCancel, onChange }) => {
+const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pendingApiCall, onClick, onCancel, onChange }) => {
   const [form] = Form.useForm();
-  return (
-    <Modal
-      visible={visible}
-      title={title}
-      okText={okText}
-      cancelText="Cancel"
-      onCancel={onCancel}
-      onOk={() => {
-        form
+
+  const handleOk = () => {
+    form
           .validateFields()
           .then(values => {
             form.resetFields();
-            onCreate(values);
+            onClick(values);
           })
           .catch(info => {
             console.log('Validate Failed:', info);
           });
-      }}
+  };
+  return (
+    <Modal
+      visible={visible}
+      title={title}
+      onOk={handleOk}
+      footer={[
+        <Button key="back" onClick={onCancel}>
+          Cancel
+        </Button>,
+        <React.Fragment key="submit">
+        <ButtonWithProgress 
+        disabled={!buttonEnabled || pendingApiCall} 
+        pendingApiCall={pendingApiCall} 
+        text={okText} onClick={handleOk} />
+        </React.Fragment>
+        ,
+      ]}
+      
     >
       <Form
         form={form}

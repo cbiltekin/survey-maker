@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import PopUpForm from '../components/PopUpForm';
-import { Button } from 'antd';
 import { createSurvey } from '../api/apiCalls';
 import { useDispatch } from 'react-redux';
+import { useApiProgress } from '../shared/ApiProgress';
+import { Button} from 'antd';
 
 const SurveyPage = (props) => {
 
     const [surveyName, setSurveyname] = useState();
-
-    const dispatch = useDispatch();
+    // const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
 
+    const dispatch = useDispatch();
+ 
     const onChange = (event) => {
-        const { value } = event.target;
+        const { name, value } = event.target;
+        // setErrors((previousErrors) => ({ ...previousErrors, [name]: undefined }));
         setSurveyname(value);
+        setVisible(value);
       };
 
     const onClickSurvey = async (event) => {
@@ -27,30 +31,37 @@ const SurveyPage = (props) => {
 
         try{
             await dispatch(createSurvey(body));
+            setVisible(false);
             push('/create');
-        } catch {
+        } catch (error){
         }
     }
 
     const { t } = useTranslation();
+    // const { surveyName: surveyNameError } = errors;
+    const pendingApiCall = useApiProgress('/api/1.0/surveys');
+    const buttonEnabled = surveyName;
 
     return (
         <div className="container">
-            <Button
+             <Button
                 type="primary"
                 onClick={() => {
                     setVisible(true);
-                }}
-            >
+                }}>
                 New Survey
       </Button>
+           
+     
             <PopUpForm
                 visible={visible}
-                title={"Create a survey"}
-                okText = {"Create"}
+                title={t('Create a survey')}
+                okText = {t('Create')}
                 label={t('Survey Title')}
                 name = "surveyName"
-                onCreate={onClickSurvey}
+                buttonEnabled = {buttonEnabled}
+                pendingApiCall = {pendingApiCall}
+                onClick={onClickSurvey}
                 onCancel={() => {
                     setVisible(false);
                 }}
