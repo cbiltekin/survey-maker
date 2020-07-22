@@ -1,5 +1,5 @@
 import * as ACTIONS from './Constants';
-import { login, signup } from '../api/apiCalls';
+import { login, signup, createSurvey } from '../api/apiCalls';
 
 export const logoutSuccess = () => {
   return {
@@ -33,3 +33,4 @@ export const signupHandler = user => {
     return response;
   };
 };
+

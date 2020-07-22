@@ -30,7 +30,7 @@ const SurveyPage = (props) => {
         };
 
         try{
-            await dispatch(createSurvey(body));
+            await createSurvey(body);
             setVisible(false);
             push('/create');
         } catch (error){
