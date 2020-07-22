@@ -7,19 +7,23 @@ import { useDispatch } from 'react-redux';
 
 const SurveyPage = (props) => {
 
-    const [surveyname, setSurveyname] = useState();
+    const [surveyName, setSurveyname] = useState();
 
     const dispatch = useDispatch();
-
     const [visible, setVisible] = useState(false);
 
+    const onChange = (event) => {
+        const { value } = event.target;
+        setSurveyname(value);
+      };
+
     const onClickSurvey = async (event) => {
-        // event.preventDefault();
-        const body = {
-            surveyname
-        };
         const { history } = props;
         const { push } = history;
+
+        const body = {
+            surveyName
+        };
 
         try{
             await dispatch(createSurvey(body));
@@ -42,11 +46,15 @@ const SurveyPage = (props) => {
       </Button>
             <PopUpForm
                 visible={visible}
+                title={"Create a survey"}
+                okText = {"Create"}
+                label={t('Survey Title')}
+                name = "surveyName"
                 onCreate={onClickSurvey}
                 onCancel={() => {
                     setVisible(false);
                 }}
-                onChange = {event => setSurveyname(event.target.value)}
+                onChange = {onChange}
             />
         </div>
     );

@@ -2,13 +2,14 @@ import React from 'react';
 import { Modal, Form, Input} from 'antd';
 
 
-const PopUpForm = ({ visible, onCreate, onCancel, onChange }) => {
+
+const PopUpForm = ({ visible, title, okText, label, name, onCreate, onCancel, onChange }) => {
   const [form] = Form.useForm();
   return (
     <Modal
       visible={visible}
-      title="Create a new survey"
-      okText="Create"
+      title={title}
+      okText={okText}
       cancelText="Cancel"
       onCancel={onCancel}
       onOk={() => {
@@ -32,8 +33,8 @@ const PopUpForm = ({ visible, onCreate, onCancel, onChange }) => {
         }}
       >
         <Form.Item
-          name="title"
-          label="Survey Title"
+          name={name}
+          label={label}
           rules={[
             {
               required: true,
