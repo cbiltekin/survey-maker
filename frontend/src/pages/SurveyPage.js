@@ -1,23 +1,35 @@
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from "react-router-dom";
 import PopUpForm from '../components/PopUpForm';
 import { Button } from 'antd';
+import { createSurvey } from '../api/apiCalls';
+import { useDispatch } from 'react-redux';
 
 const SurveyPage = (props) => {
 
+    const [surveyname, setSurveyname] = useState();
+
+    const dispatch = useDispatch();
+
     const [visible, setVisible] = useState(false);
 
-    const history = useHistory();
+    const onClickSurvey = async (event) => {
+        // event.preventDefault();
+        const body = {
+            surveyname
+        };
+        const { history } = props;
+        const { push } = history;
 
-    const routeSurvey = () => {
-        setVisible(false);
-        const path = '/create';
-        history.push(path);
+        try{
+            await dispatch(createSurvey(body));
+            push('/create');
+        } catch {
+        }
     }
 
     const { t } = useTranslation();
-    
+
     return (
         <div className="container">
             <Button
@@ -26,14 +38,15 @@ const SurveyPage = (props) => {
                     setVisible(true);
                 }}
             >
-                New Collection
+                New Survey
       </Button>
             <PopUpForm
                 visible={visible}
-                onCreate={routeSurvey}
+                onCreate={onClickSurvey}
                 onCancel={() => {
                     setVisible(false);
                 }}
+                onChange = {event => setSurveyname(event.target.value)}
             />
         </div>
     );

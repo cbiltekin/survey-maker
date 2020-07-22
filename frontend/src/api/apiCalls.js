@@ -11,3 +11,7 @@ export const login = creds => {
 export const changeLanguage = language => {
   axios.defaults.headers['accept-language'] = language;
 };
+
+export const createSurvey = survey => {
+  return axios.post('api/1.0/surveys', survey);
+}

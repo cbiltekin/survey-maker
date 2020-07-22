@@ -42,7 +42,7 @@ const TopBar = props => {
           </Link>
         </li>
         <li>
-          <Link className="nav-link" to="/surveys">
+          <Link className="nav-link" to="/mysurveys">
             {t('My Surveys')}
           </Link>
         </li>

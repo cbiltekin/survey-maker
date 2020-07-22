@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Form, Input} from 'antd';
 
 
-const PopUpForm = ({ visible, onCreate, onCancel }) => {
+const PopUpForm = ({ visible, onCreate, onCancel, onChange }) => {
   const [form] = Form.useForm();
   return (
     <Modal
@@ -41,7 +41,7 @@ const PopUpForm = ({ visible, onCreate, onCancel }) => {
             },
           ]}
         >
-          <Input/>
+          <Input onChange={onChange}/>
         </Form.Item>
       </Form>
     </Modal>
