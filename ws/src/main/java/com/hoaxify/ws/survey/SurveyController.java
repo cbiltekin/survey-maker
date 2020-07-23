@@ -1,5 +1,7 @@
 package com.hoaxify.ws.survey;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +16,7 @@ public class SurveyController {
 	SurveyService surveyService;
 	
 	@PostMapping("/api/1.0/surveys")
-	GenericResponse saveSurvey(@RequestBody Survey survey) {
+	GenericResponse saveSurvey(@Valid @RequestBody Survey survey) {
 		surveyService.save(survey);
 		return new GenericResponse("Survey is saved.");
 		

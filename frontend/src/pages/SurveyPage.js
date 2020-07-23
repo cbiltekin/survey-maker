@@ -9,16 +9,14 @@ import { Button} from 'antd';
 const SurveyPage = (props) => {
 
     const [surveyName, setSurveyname] = useState();
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
 
     const dispatch = useDispatch();
  
     const onChange = (event) => {
         const { name, value } = event.target;
-        // setErrors((previousErrors) => ({ ...previousErrors, [name]: undefined }));
         setSurveyname(value);
-        setVisible(value);
       };
 
     const onClickSurvey = async (event) => {
@@ -34,11 +32,13 @@ const SurveyPage = (props) => {
             setVisible(false);
             push('/create');
         } catch (error){
+            if (error.response.data.validationErrors) {
+                setErrors(error.response.data.validationErrors);
+            }
         }
     }
 
     const { t } = useTranslation();
-    // const { surveyName: surveyNameError } = errors;
     const pendingApiCall = useApiProgress('/api/1.0/surveys');
     const buttonEnabled = surveyName;
 
@@ -61,6 +61,7 @@ const SurveyPage = (props) => {
                 name = "surveyName"
                 buttonEnabled = {buttonEnabled}
                 pendingApiCall = {pendingApiCall}
+                errors = {errors}
                 onClick={onClickSurvey}
                 onCancel={() => {
                     setVisible(false);

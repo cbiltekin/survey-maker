@@ -4,7 +4,7 @@ import ButtonWithProgress from '../components/ButtonWithProgress';
 
 
 
-const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pendingApiCall, onClick, onCancel, onChange }) => {
+const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pendingApiCall, errors, onClick, onCancel, onChange }) => {
   const [form] = Form.useForm();
 
   const handleOk = () => {
@@ -23,6 +23,7 @@ const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pending
       visible={visible}
       title={title}
       onOk={handleOk}
+      onCancel={onCancel}
       footer={[
         <Button key="back" onClick={onCancel}>
           Cancel
@@ -48,14 +49,12 @@ const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pending
         <Form.Item
           name={name}
           label={label}
-          rules={[
-            {
-              required: true,
-              message: 'Please input the title of survey!',
-            },
-          ]}
+          
         >
           <Input onChange={onChange}/>
+          <div class="text-danger">
+        {errors.surveyName}
+        </div>
         </Form.Item>
       </Form>
     </Modal>
