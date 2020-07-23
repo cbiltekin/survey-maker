@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import PopUpForm from '../components/PopUpForm';
 import { createSurvey } from '../api/apiCalls';
@@ -13,6 +13,10 @@ const SurveyPage = (props) => {
     const [visible, setVisible] = useState(false);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setErrors({});
+    }, [surveyName]);
  
     const onChange = (event) => {
         const { name, value } = event.target;
