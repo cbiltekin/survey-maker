@@ -13,5 +13,5 @@ export const changeLanguage = language => {
 };
 
 export const createSurvey = survey => {
-  return axios.post('api/1.0/surveys', survey);
+  return axios.post('/api/1.0/surveys', survey);
 }

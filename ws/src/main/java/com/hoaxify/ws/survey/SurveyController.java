@@ -16,13 +16,11 @@ public class SurveyController {
 	SurveyService surveyService;
 	
 	@PostMapping("/api/1.0/surveys")
-	GenericResponse saveSurvey(@Valid @RequestBody Survey survey) {
+	public GenericResponse saveSurvey(@Valid @RequestBody Survey survey) {
 		surveyService.save(survey);
 		return new GenericResponse("Survey is saved.");
 		
 	}
-	
-	
 	
 
 }

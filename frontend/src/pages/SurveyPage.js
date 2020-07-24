@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import PopUpForm from '../components/PopUpForm';
 import { createSurvey } from '../api/apiCalls';
 import { useDispatch } from 'react-redux';
-import { useApiProgress } from '../shared/ApiProgress';
 import { Button} from 'antd';
+import { useApiProgress } from '../shared/ApiProgress';
+import ButtonWithProgress from '../components/ButtonWithProgress';
 
 const SurveyPage = (props) => {
 
@@ -12,18 +13,16 @@ const SurveyPage = (props) => {
     const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
 
-    const dispatch = useDispatch();
-
     useEffect(() => {
         setErrors({});
     }, [surveyName]);
- 
+
     const onChange = (event) => {
         const { name, value } = event.target;
         setSurveyname(value);
       };
 
-    const onClickSurvey = async (event) => {
+    const onClickSurvey = async () => {
         const { history } = props;
         const { push } = history;
 
@@ -43,8 +42,6 @@ const SurveyPage = (props) => {
     }
 
     const { t } = useTranslation();
-    const pendingApiCall = useApiProgress('/api/1.0/surveys');
-    const buttonEnabled = surveyName;
 
     return (
         <div className="container">
@@ -54,20 +51,18 @@ const SurveyPage = (props) => {
                     setVisible(true);
                 }}>
                 New Survey
-      </Button>
-           
-     
+            </Button>
+
             <PopUpForm
                 visible={visible}
                 title={t('Create a survey')}
                 okText = {t('Create')}
                 label={t('Survey Title')}
                 name = "surveyName"
-                buttonEnabled = {buttonEnabled}
-                pendingApiCall = {pendingApiCall}
                 errors = {errors}
                 onClick={onClickSurvey}
                 onCancel={() => {
+                    setErrors({});
                     setVisible(false);
                 }}
                 onChange = {onChange}

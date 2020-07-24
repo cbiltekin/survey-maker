@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, Modal, Form, Input} from 'antd';
 import ButtonWithProgress from '../components/ButtonWithProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 
 
 
-const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pendingApiCall, errors, onClick, onCancel, onChange }) => {
+const PopUpForm = ({ visible, title, okText, label, name, errors, onClick, onCancel, onChange }) => {
   const [form] = Form.useForm();
+  const pendingApiCall = useApiProgress('/api/1.0/surveys');
 
   const handleOk = () => {
     form
@@ -30,9 +32,10 @@ const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pending
         </Button>,
         <React.Fragment key="submit">
         <ButtonWithProgress 
-        disabled={!buttonEnabled || pendingApiCall} 
+        onClick={handleOk}
         pendingApiCall={pendingApiCall} 
-        text={okText} onClick={handleOk} />
+        disabled={pendingApiCall} 
+        text={okText}  />
         </React.Fragment>
         ,
       ]}
@@ -52,10 +55,10 @@ const PopUpForm = ({ visible, title, okText, label, name, buttonEnabled, pending
           
         >
           <Input onChange={onChange}/>
-          <div class="text-danger">
+        </Form.Item>
+        <div className="text-danger">
         {errors.surveyName}
         </div>
-        </Form.Item>
       </Form>
     </Modal>
   );
