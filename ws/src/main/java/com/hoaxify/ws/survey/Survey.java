@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.hoaxify.ws.user.User;
+
 import lombok.Data;
 
 @Data
@@ -18,4 +20,6 @@ public class Survey {
 	@NotNull
 	@Size(min = 4, max=255)
 	private String surveyName;
+	
+	private User user;
 }

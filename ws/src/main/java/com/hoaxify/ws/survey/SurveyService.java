@@ -2,6 +2,8 @@ package com.hoaxify.ws.survey;
 
 import org.springframework.stereotype.Service;
 
+import com.hoaxify.ws.user.User;
+
 @Service
 public class SurveyService {
 	
@@ -12,10 +14,9 @@ public class SurveyService {
 		this.surveyRepository = surveyRepository;
 	}
 
-	public void save(Survey survey) {
+	public void save(Survey survey, User user) {
+		survey.setUser(user);
 		surveyRepository.save(survey);	
 	}
-	
-	
 
 }

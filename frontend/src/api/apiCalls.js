@@ -12,6 +12,15 @@ export const changeLanguage = language => {
   axios.defaults.headers['accept-language'] = language;
 };
 
+export const setAuthorizationHeader = ({ username, password, isLoggedIn }) => {
+  if (isLoggedIn) {
+    const authorizationHeaderValue = `Basic ${btoa(username + ':' + password)}`;
+    axios.defaults.headers['Authorization'] = authorizationHeaderValue;
+  } else {
+    delete axios.defaults.headers['Authorization'];
+  }
+};
+
 export const createSurvey = survey => {
   return axios.post('/api/1.0/surveys', survey);
 }
