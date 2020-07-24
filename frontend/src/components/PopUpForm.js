@@ -27,7 +27,7 @@ const PopUpForm = ({ visible, title, okText, label, name, errors, onClick, onCan
       onOk={handleOk}
       onCancel={onCancel}
       footer={[
-        <Button key="back" onClick={onCancel}>
+        <Button key="back" onClick={onCancel} disabled = {pendingApiCall}>
           Cancel
         </Button>,
         <React.Fragment key="submit">
