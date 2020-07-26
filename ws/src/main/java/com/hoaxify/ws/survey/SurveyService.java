@@ -1,11 +1,10 @@
 package com.hoaxify.ws.survey;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
-
 import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserService;
 
@@ -34,5 +33,10 @@ public class SurveyService {
 		User inDB = userService.getByUsername(username);
 		return surveyRepository.findByUser(inDB, page);
 	}
+	
+	public List<Survey> findAll(String surveyName) {
+	    return surveyRepository.findBySurveyName(surveyName);
+	}
+
 
 }

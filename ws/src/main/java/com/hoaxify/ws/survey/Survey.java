@@ -21,6 +21,7 @@ public class Survey {
 	
 	@NotNull
 	@Size(min = 4, max=255)
+	@UniqueSurveyName
 	private String surveyName;
 	
 	@ManyToOne
