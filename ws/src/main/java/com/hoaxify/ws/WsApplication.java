@@ -23,6 +23,12 @@ public class WsApplication {
 			user.setDisplayName("display1");
 			user.setPassword("P4ssword");
 			userService.save(user);
+			
+			User user2 = new User();
+			user2.setUsername("user2");
+			user2.setDisplayName("display2");
+			user2.setPassword("P4ssword2");
+			userService.save(user2);
 		};
 	}
 	

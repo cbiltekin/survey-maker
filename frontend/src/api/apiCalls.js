@@ -24,3 +24,9 @@ export const setAuthorizationHeader = ({ username, password, isLoggedIn }) => {
 export const createSurvey = survey => {
   return axios.post('/api/1.0/surveys', survey);
 }
+
+//for surveyfeed
+export const getSurveys = (username, page = 0) => {
+  const path = username ? `/api/1.0/users/${username}/surveys?page=` : '/api/1.0/surveys?page=';
+  return axios.get( path + page);
+}

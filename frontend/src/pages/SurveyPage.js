@@ -6,12 +6,15 @@ import { useDispatch } from 'react-redux';
 import { Button} from 'antd';
 import { useApiProgress } from '../shared/ApiProgress';
 import ButtonWithProgress from '../components/ButtonWithProgress';
+import SurveyFeed from '../components/SurveyFeed';
+
 
 const SurveyPage = (props) => {
 
     const [surveyName, setSurveyname] = useState();
     const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
+
 
     useEffect(() => {
         setErrors({});
@@ -45,6 +48,7 @@ const SurveyPage = (props) => {
 
     return (
         <div className="container">
+            <SurveyFeed/>
              <Button
                 type="primary"
                 onClick={() => {
