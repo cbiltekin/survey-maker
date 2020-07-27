@@ -36,7 +36,10 @@ const SurveyPage = (props) => {
         try{
             await createSurvey(body);
             setVisible(false);
-            push('/create');
+            push({
+                pathname: '/create',
+                data: surveyName
+            });
         } catch (error){
             if (error.response.data.validationErrors) {
                 setErrors(error.response.data.validationErrors);

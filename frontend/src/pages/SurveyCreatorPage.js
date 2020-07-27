@@ -2,9 +2,11 @@ import React from 'react';
 import ProfileCard from '../components/SurveySubmit';
 
 const SurveyCreatorPage = (props) => {
+    const { data } = props.location;
+
     return (
         <div className ="container">
-            createorpage
+            Survey Name: {data}
         </div>
     );
 };
