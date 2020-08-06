@@ -9,11 +9,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
 import com.hoaxify.ws.survey.vm.SurveyVM;
@@ -38,4 +42,25 @@ public class SurveyController {
 		return surveyService.getSurveysOfUser(user.getUsername(), page).map(SurveyVM::new);
 	}
 	
+	@GetMapping("/surveys/{id}")
+	SurveyVM getSurvey(@PathVariable long id) {
+		Survey inDB = surveyService.getById(id);
+		if(inDB==null) {
+			throw new NotFoundException();
+		}
+		else {
+			return new SurveyVM(inDB);
+		}
+	}
+	
+	@GetMapping("/survey/{surveyName}")
+	SurveyVM getSurveyByName(@PathVariable String surveyName, @CurrentUser User user) {
+		Survey inDB = surveyService.getBySurveyNameAndUsername(surveyName, user);
+		if(inDB==null) {
+			throw new NotFoundException();
+		}
+		else {
+			return new SurveyVM(inDB);
+		}
+	}
 }

@@ -1,4 +1,5 @@
-package com.hoaxify.ws.survey;
+package com.hoaxify.ws.question;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,24 +9,28 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.survey.Survey;
 
-import javassist.SerialVersionUID;
 import lombok.Data;
 
 @Data
 @Entity
-public class Survey {
+public class Question {
 	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
-	@Size(min = 4, max=255)
-	@UniqueSurveyName
-	private String surveyName;
+	private String type;
+	
+	@NotNull
+	@Size(max=255)
+	private String name;
+	
+	@NotNull
+	private String [] answers;
 	
 	@ManyToOne
-	private User user;
+	private Survey survey;
+		
 }

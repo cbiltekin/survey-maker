@@ -7,7 +7,7 @@ const SurveyView = (props) => {
         <div className="card p-1">
             <Link
                 to={{
-                    pathname: '/create',
+                    pathname: `/create/${survey.id}`,
                     data: survey.surveyName
                 }}
             >{survey.surveyName}</Link>

@@ -38,5 +38,17 @@ public class SurveyService {
 	    return surveyRepository.findBySurveyName(surveyName);
 	}
 
+	public Survey getById(long id) {
+		return surveyRepository.findById(id);
+	}
 
+	public Survey getBySurveyNameAndUsername(String surveyName, User user) {
+		List<Survey> surveyByName = surveyRepository.findBySurveyName(surveyName);
+		for(Survey surv: surveyByName) {
+			if (surv.getUser().getUsername() == user.getUsername()) {
+				return surv;
+			}
+		}
+		return null;
+	}
 }

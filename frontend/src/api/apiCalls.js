@@ -30,3 +30,13 @@ export const getSurveys = (username, page = 0) => {
   const path = username ? `/api/1.0/users/${username}/surveys?page=` : '/api/1.0/surveys?page=';
   return axios.get( path + page);
 }
+
+//for single survey get
+export const getSurvey = id => {
+  return axios.get(`/api/1.0/surveys/${id}`);
+}
+
+//for single survey by name
+export const getSurveyByName = surveyName => {
+  return axios.get(`/api/1.0/survey/${surveyName}`);
+}

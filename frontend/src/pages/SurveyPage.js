@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import PopUpForm from '../components/PopUpForm';
-import { createSurvey } from '../api/apiCalls';
-import { useDispatch } from 'react-redux';
+import { createSurvey, getSurveyByName } from '../api/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button} from 'antd';
 import { useApiProgress } from '../shared/ApiProgress';
 import ButtonWithProgress from '../components/ButtonWithProgress';
@@ -14,6 +14,7 @@ const SurveyPage = (props) => {
     const [surveyName, setSurveyname] = useState();
     const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
+    const [survey, setSurvey] = useState();
 
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const SurveyPage = (props) => {
         const { name, value } = event.target;
         setSurveyname(value);
       };
+
 
     const onClickSurvey = async () => {
         const { history } = props;
@@ -36,10 +38,17 @@ const SurveyPage = (props) => {
         try{
             await createSurvey(body);
             setVisible(false);
-            push({
-                pathname: '/create',
-                data: surveyName
-            });
+            try {
+                const res = await getSurveyByName(surveyName);
+                push({
+                    pathname: `/create/${res.data.id}`,
+                    data: surveyName
+                 });
+            } catch (error){
+                if (error.response.data.validationErrors) {
+                    setErrors(error.response.data.validationErrors);
+                }
+            }
         } catch (error){
             if (error.response.data.validationErrors) {
                 setErrors(error.response.data.validationErrors);
@@ -79,3 +88,7 @@ const SurveyPage = (props) => {
 };
 
 export default SurveyPage;
+
+function newFunction(res) {
+    console.log(res.data);
+}

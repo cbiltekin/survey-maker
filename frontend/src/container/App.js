@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/signup" component={UserSignupPage} />
           <Route path="/user/:username" component={UserPage} />
           {isLoggedIn && <Route path ="/mysurveys" component={SurveyPage} />}
-          {isLoggedIn && <Route path ="/create" component={SurveyCreatorPage} />}
+          {isLoggedIn && <Route path ="/create/:id" component={SurveyCreatorPage} />}
           <Redirect to="/" />
         </Switch>
       </Router>
