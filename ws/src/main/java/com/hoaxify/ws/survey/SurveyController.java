@@ -43,13 +43,14 @@ public class SurveyController {
 	}
 	
 	@GetMapping("/surveys/{id}")
-	SurveyVM getSurvey(@PathVariable long id) {
+	SurveyVM getSurvey(@PathVariable long id, @CurrentUser User user) {
 		Survey inDB = surveyService.getById(id);
-		if(inDB==null) {
-			throw new NotFoundException();
+		
+		if(inDB != null && inDB.getUser().getUsername().equals(user.getUsername())) {
+			return new SurveyVM(inDB);
 		}
 		else {
-			return new SurveyVM(inDB);
+			throw new NotFoundException();
 		}
 	}
 	

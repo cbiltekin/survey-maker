@@ -9,6 +9,7 @@ const SurveyCreatorPage = (props) => {
 
     const [survey, setSurvey] = useState();
     const [isComplete, setComplete] = useState(false);
+    const [notFound, setNotFound] = useState(false);
 
     const {id} = useParams();
 
@@ -18,7 +19,10 @@ const SurveyCreatorPage = (props) => {
         try {
           const response = await getSurvey(id);
           setSurvey(response.data);
+          setNotFound(false);
         } catch (error) {
+          setNotFound(true);
+
         }
       };
 
@@ -44,6 +48,16 @@ const SurveyCreatorPage = (props) => {
 
       var surv = <Survey.Survey json = {json}
       onComplete = {onCompleteSurvey}/>
+
+      if(notFound){
+        return(
+          <div className ="container">
+            <div className ="alert alert-danger">
+            Survey not found
+            </div>
+          </div>
+        );
+      }
     return (
         <div className ="container">
           {survey && <div>Survey Name: {survey.surveyName}</div>}
