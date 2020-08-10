@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, Modal, Form, Input, Radio} from 'antd';
+import ButtonWithProgress from '../components/ButtonWithProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 
 
-const QuestionTypeBox = ({ visible, title, okText, label, name, errors, onClick, onCancel, onChange }) => {
-    const [form] = Form.useForm();
-    const pendingApiCall = useApiProgress('/api/1.0/surveys');
+
+const QuestionTypeBox = ({ visible, onClick, onCancel, onChange, value }) => {
+    const pendingApiCall = useApiProgress('/api/1.0/questions');
   
     const handleOk = () => {
-      form
-            .validateFields()
-            .then(values => {
-              form.resetFields();
-              onClick(values);
-            })
-            .catch(info => {
-              console.log('Validate Failed:', info);
-            });
+      onClick();
     };
+
+    const radioStyle = {
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px',
+    };
+
     return (
       <Modal
         visible={visible}
-        title={title}
+        title="Please choose a question type."
         onOk={handleOk}
         onCancel={onCancel}
         footer={[
@@ -31,31 +33,26 @@ const QuestionTypeBox = ({ visible, title, okText, label, name, errors, onClick,
           onClick={handleOk}
           pendingApiCall={pendingApiCall} 
           disabled={pendingApiCall} 
-          text={okText}  />
+          text="Create"  />
           </React.Fragment>
           ,
         ]}
         
       >
-        <Form
-          form={form}
-          layout="vertical"
-          name="form_in_modal"
-          initialValues={{
-            modifier: 'public',
-          }}
-        >
-          <Form.Item
-            name={name}
-            label={label}
-            
-          >
-            <Input onChange={onChange}/>
-          </Form.Item>
-          <div className="text-danger">
-          {errors.surveyName}
-          </div>
-        </Form>
+        <Radio.Group onChange={onChange} value={value}>
+        <Radio style={radioStyle} value={1}>
+          Multiple Choice
+        </Radio>
+        <Radio style={radioStyle} value={2}>
+          CheckBox
+        </Radio>
+        <Radio style={radioStyle} value={3}>
+          Star Rating
+        </Radio>
+        <Radio style={radioStyle} value={4}>
+          Text Box
+        </Radio>
+      </Radio.Group>
       </Modal>
     );
   };

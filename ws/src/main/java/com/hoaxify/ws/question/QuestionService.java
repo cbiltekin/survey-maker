@@ -15,8 +15,7 @@ public class QuestionService {
 		this.qrepository = qrepository;
 	}
 	
-	public void save(Question question, Survey survey) {
-		question.setSurvey(survey);
+	public void save(Question question) {
 		qrepository.save(question);	
 	}
 

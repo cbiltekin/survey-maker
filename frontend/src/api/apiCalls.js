@@ -40,3 +40,7 @@ export const getSurvey = id => {
 export const getSurveyByName = surveyName => {
   return axios.get(`/api/1.0/survey/${surveyName}`);
 }
+
+export const addQuestion = (question) => {
+  return axios.post('/api/1.0/questions', question);
+}

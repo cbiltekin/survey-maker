@@ -1,15 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
-import { getSurvey } from '../api/apiCalls';
+import { getSurvey, addQuestion } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
+import QuestionTypeBox from '../components/QuestionTypeBox';
+import { Button} from 'antd';
 
 const SurveyCreatorPage = (props) => {
-    // const { data } = props.location;
 
     const [survey, setSurvey] = useState();
-    const [isComplete, setComplete] = useState(false);
+    // const [isComplete, setComplete] = useState(false);
     const [notFound, setNotFound] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [value, setValue] = useState(1);
+    const [type, setType] = useState("radiogroup");
+    const [errors, setErrors] = useState({});
 
     const {id} = useParams();
 
@@ -29,25 +34,62 @@ const SurveyCreatorPage = (props) => {
       loadSurvey();
     }, [id]);
 
-    
+    useEffect(() => {
+      setErrors({});
+  }, [type]);
 
-    var json = {
-        pages: [
-          {
-            name: "page1",
-            elements: [
-              { type: "text", name: "question1" }
-            ]
-          }
-        ]
+    const onChangeRadio = event => {
+      console.log('radio checked', event.target.value);
+      setValue(event.target.value);
+
+      if(event.target.value===1){
+        setType("radiogroup");
+      } else if (event.target.value===2){
+        setType("checkbox");
+      } else if(event.target.value===3){
+        setType("rating");
+      } else if(event.target.value==4){
+        setType("text");
       }
-
-      const onCompleteSurvey = () =>{
-        setComplete(true);  
     };
 
-      var surv = <Survey.Survey json = {json}
-      onComplete = {onCompleteSurvey}/>
+    const onClickQuestion = async () => {
+
+      const question = {
+          type,
+          survey
+      };
+
+      try{
+        console.log(type);
+          await addQuestion(question);
+          setVisible(false);
+      } catch (error){
+          if (error.response.data.validationErrors) {
+              setErrors(error.response.data.validationErrors);
+          }
+      }
+  }
+
+    
+
+    // var json = {
+    //     pages: [
+    //       {
+    //         name: "page1",
+    //         elements: [
+    //           { type: "text", name: "question1" }
+    //         ]
+    //       }
+    //     ]
+    //   }
+
+    //   const onCompleteSurvey = () =>{
+    //     setComplete(true);  
+    // };
+
+      // var surv = <Survey.Survey json = {json}
+      // onComplete = {onCompleteSurvey}/>
 
       if(notFound){
         return(
@@ -61,7 +103,22 @@ const SurveyCreatorPage = (props) => {
     return (
         <div className ="container">
           {survey && <div>Survey Name: {survey.surveyName}</div>}
-            {surv}
+          <Button
+                type="primary"
+                onClick={() => {
+                    setVisible(true);
+                }}>
+                Add Question
+          </Button>
+            <QuestionTypeBox
+            visible={visible}
+            onClick={onClickQuestion}
+            onCancel={() => {
+              setVisible(false);
+          }}
+          onChange = {onChangeRadio}
+          value = {value}
+            />
         </div>
     );
 

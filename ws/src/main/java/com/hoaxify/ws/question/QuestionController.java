@@ -21,8 +21,8 @@ public class QuestionController {
 	QuestionService qservice;
 	
 	@PostMapping("/questions")
-	public GenericResponse saveQuestion(@Valid @RequestBody Question question, Survey survey) {
-		qservice.save(question, survey);
+	public GenericResponse saveQuestion(@Valid @RequestBody Question question) {
+		qservice.save(question);
 		return new GenericResponse("Question is saved.");
 		
 	}

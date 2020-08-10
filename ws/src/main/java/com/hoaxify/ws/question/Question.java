@@ -23,12 +23,10 @@ public class Question {
 	@NotNull
 	private String type;
 	
-	@NotNull
 	@Size(max=255)
 	private String name;
 	
-	@NotNull
-	private String [] answers;
+	private String [] choices;
 	
 	@ManyToOne
 	private Survey survey;

@@ -2,10 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import PopUpForm from '../components/PopUpForm';
 import { createSurvey, getSurveyByName } from '../api/apiCalls';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button} from 'antd';
-import { useApiProgress } from '../shared/ApiProgress';
-import ButtonWithProgress from '../components/ButtonWithProgress';
 import SurveyFeed from '../components/SurveyFeed';
 
 
@@ -88,7 +85,3 @@ const SurveyPage = (props) => {
 };
 
 export default SurveyPage;
-
-function newFunction(res) {
-    console.log(res.data);
-}
