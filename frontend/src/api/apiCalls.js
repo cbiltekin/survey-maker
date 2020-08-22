@@ -44,3 +44,9 @@ export const getSurveyByName = surveyName => {
 export const addQuestion = (question) => {
   return axios.post('/api/1.0/questions', question);
 }
+
+//get questions of survey in draft
+export const getQuestions = (id, page = 0) => {
+  const path = id ? `/api/1.0/surveys/${id}/questions?page=` : '/api/1.0/questions?page=';
+  return axios.get( path + page);
+}

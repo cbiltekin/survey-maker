@@ -5,16 +5,19 @@ import { getSurvey, addQuestion } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
 import QuestionTypeBox from '../components/QuestionTypeBox';
 import { Button} from 'antd';
+import QuestionFeed from '../components/QuestionFeed';
 
 const SurveyCreatorPage = (props) => {
 
     const [survey, setSurvey] = useState();
-    // const [isComplete, setComplete] = useState(false);
+    const [isComplete, setComplete] = useState(false);
     const [notFound, setNotFound] = useState(false);
     const [visible, setVisible] = useState(false);
     const [value, setValue] = useState(1);
     const [type, setType] = useState("radiogroup");
     const [errors, setErrors] = useState({});
+    const[qVis, setQVis] = useState(false);
+    const[name, setName] = useState("Enter your question here.");
 
     const {id} = useParams();
 
@@ -57,6 +60,7 @@ const SurveyCreatorPage = (props) => {
 
       const question = {
           type,
+          name,
           survey
       };
 
@@ -64,6 +68,7 @@ const SurveyCreatorPage = (props) => {
         console.log(type);
           await addQuestion(question);
           setVisible(false);
+          setQVis(true);
       } catch (error){
           if (error.response.data.validationErrors) {
               setErrors(error.response.data.validationErrors);
@@ -73,23 +78,18 @@ const SurveyCreatorPage = (props) => {
 
     
 
-    // var json = {
-    //     pages: [
-    //       {
-    //         name: "page1",
-    //         elements: [
-    //           { type: "text", name: "question1" }
-    //         ]
-    //       }
-    //     ]
-    //   }
+    //  var json = {
+    //          elements: [
+    //            { type, name}
+    //          ]
+    //        }
 
-    //   const onCompleteSurvey = () =>{
-    //     setComplete(true);  
-    // };
+    //    const onCompleteSurvey = () =>{
+    //      setComplete(true);  
+    //  };
 
-      // var surv = <Survey.Survey json = {json}
-      // onComplete = {onCompleteSurvey}/>
+    //    var surv = <Survey.Survey json = {json}
+    //    onComplete = {onCompleteSurvey}/>
 
       if(notFound){
         return(
@@ -119,6 +119,9 @@ const SurveyCreatorPage = (props) => {
           onChange = {onChangeRadio}
           value = {value}
             />
+            <QuestionFeed/>
+
+        {/* {qVis && <div>{surv}</div>} */}
         </div>
     );
 

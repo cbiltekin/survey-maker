@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const SurveyView = (props) => {
     const { survey } = props;
+    
     return (
         <div className="card p-1">
             <Link
