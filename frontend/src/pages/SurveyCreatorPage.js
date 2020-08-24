@@ -41,6 +41,7 @@ const SurveyCreatorPage = (props) => {
       setErrors({});
   }, [type]);
 
+
     const onChangeRadio = event => {
       console.log('radio checked', event.target.value);
       setValue(event.target.value);
@@ -68,28 +69,12 @@ const SurveyCreatorPage = (props) => {
         console.log(type);
           await addQuestion(question);
           setVisible(false);
-          setQVis(true);
       } catch (error){
           if (error.response.data.validationErrors) {
               setErrors(error.response.data.validationErrors);
           }
       }
   }
-
-    
-
-    //  var json = {
-    //          elements: [
-    //            { type, name}
-    //          ]
-    //        }
-
-    //    const onCompleteSurvey = () =>{
-    //      setComplete(true);  
-    //  };
-
-    //    var surv = <Survey.Survey json = {json}
-    //    onComplete = {onCompleteSurvey}/>
 
       if(notFound){
         return(
@@ -120,8 +105,6 @@ const SurveyCreatorPage = (props) => {
           value = {value}
             />
             <QuestionFeed/>
-
-        {/* {qVis && <div>{surv}</div>} */}
         </div>
     );
 

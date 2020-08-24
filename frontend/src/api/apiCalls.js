@@ -50,3 +50,8 @@ export const getQuestions = (id, page = 0) => {
   const path = id ? `/api/1.0/surveys/${id}/questions?page=` : '/api/1.0/questions?page=';
   return axios.get( path + page);
 }
+
+//get old questions from given id
+export const getOldQuestions = (id, qId) => {
+  return axios.get(`/api/1.0/surveys/${id}/questions/${qId}`);
+}

@@ -39,5 +39,12 @@ public class QuestionController {
 	Page<QuestionVM> getSurveyQuestions(@PathVariable long id, @PageableDefault(sort="id", direction = Direction.DESC) Pageable page){
 		return qservice.getQuestionsOfSurvey(id, page).map(QuestionVM::new);
 	}
+	
+	@GetMapping("/surveys/{id}/questions/{qId}")
+	Page<QuestionVM> getSurveyQuestions(@PathVariable long id, @PathVariable long qId, @PageableDefault(sort="id", direction = Direction.DESC) Pageable page){
+		return qservice.getOldQuestionsOfSurvey(id, qId, page).map(QuestionVM::new);
+	}
+	
+	
 
 }

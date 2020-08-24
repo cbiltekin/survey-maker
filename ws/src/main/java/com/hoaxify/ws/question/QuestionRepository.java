@@ -10,5 +10,7 @@ import com.hoaxify.ws.user.User;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 	
 	Page <Question> findBySurvey(Survey survey, Pageable page);
+	
+	Page <Question> findByIdLessThanAndSurvey(long id, Survey survey, Pageable page);
 
 }
