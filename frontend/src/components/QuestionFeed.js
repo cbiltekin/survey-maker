@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {getSurveys, getQuestions, getOldQuestions} from '../api/apiCalls';
+import {getSurveys, getQuestions, getOldQuestions, getNewQuestionCount, getNewQuestions} from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import QuestionView from './QuestionView';
 import { useApiProgress } from '../shared/ApiProgress';
@@ -8,10 +8,14 @@ import { useParams } from 'react-router-dom';
 
 const QuestionFeed = () => {
     const [questionPage, setQuestionPage] = useState({ content: [], last: true, number: 0});
+    const [newQCount, setQCount] = useState(0);
     const {t} = useTranslation();
     const {id} = useParams(); //to take current survey id
+
     let lastQuestionId = 0;
+    let firstQId = 0;
     if( questionPage.content.length > 0){
+        firstQId = questionPage.content[0].id;
         const lastQuestionIndex = questionPage.content.length - 1;
         lastQuestionId = questionPage.content[lastQuestionIndex].id;
     }
@@ -19,6 +23,21 @@ const QuestionFeed = () => {
     const path = `/api/1.0/surveys/${id}/questions?page=`;
     const initialProgress = useApiProgress('get', path);
     const laterProgress = useApiProgress('get', `/api/1.0/surveys/${id}/questions/${lastQuestionId}`, true);
+
+    //polling
+    useEffect(() =>{
+        const getCount = async () => {
+            const response = await getNewQuestionCount(id, firstQId);
+            setQCount(response.data.count);
+        };
+
+        let looper = setInterval(() =>{
+            getCount();
+        }, 5000);
+        return function cleanup() {
+            clearInterval(looper);
+        };
+    },[firstQId, id]);
 
     useEffect(() =>{
 
@@ -40,6 +59,13 @@ const QuestionFeed = () => {
         loadQuestions();
     },[id]);
 
+    useEffect(()=>{
+        if(newQCount>0){
+            loadNewQuestions();
+        }
+
+    },[newQCount]);
+
     
 
     const loadOldQuestions = async () => {
@@ -48,6 +74,15 @@ const QuestionFeed = () => {
             ...response.data,
             content: [...previousQuestionPage.content, ...response.data.content]
         }));
+    }
+
+    const loadNewQuestions = async () => {
+        const response = await getNewQuestions(id, firstQId);
+        setQuestionPage(previousQuestionPage=>({
+            ...previousQuestionPage,
+            content: [...response.data, ...previousQuestionPage.content]
+        }));
+        setQCount(0);
     }
 
     const {content, last} = questionPage;

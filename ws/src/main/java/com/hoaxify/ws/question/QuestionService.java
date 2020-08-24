@@ -1,7 +1,10 @@
 package com.hoaxify.ws.question;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,16 @@ public class QuestionService {
 	public Page <Question> getOldQuestionsOfSurvey(long id, long qId, Pageable page) {
 		Survey inDB = surveyService.getById(id);
 		return qrepository.findByIdLessThanAndSurvey(qId, inDB, page);
+	}
+
+	public List<Question> getNewQuestions(long id, long qId, Sort sort) {
+		Survey inDB = surveyService.getById(id);
+		return qrepository.findByIdGreaterThanAndSurvey(qId, inDB, sort);
+	}
+
+	public long getNewQuestionsCount(long id, long qId) {
+		Survey inDB = surveyService.getById(id);
+		return qrepository.countByIdGreaterThanAndSurvey(qId, inDB);
 	}
 
 }

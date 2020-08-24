@@ -55,3 +55,13 @@ export const getQuestions = (id, page = 0) => {
 export const getOldQuestions = (id, qId) => {
   return axios.get(`/api/1.0/surveys/${id}/questions/${qId}`);
 }
+
+//new question count for specific survey
+export const getNewQuestionCount = (id, qId) => {
+  return axios.get(`/api/1.0/surveys/${id}/questions/${qId}?count=true`);
+}
+
+//get new questions for update
+export const getNewQuestions = (id, qId) => {
+  return axios.get(`/api/1.0/surveys/${id}/questions/${qId}?direction=after`);
+}
