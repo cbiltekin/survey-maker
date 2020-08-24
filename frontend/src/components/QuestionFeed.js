@@ -10,10 +10,15 @@ const QuestionFeed = () => {
     const [questionPage, setQuestionPage] = useState({ content: [], last: true, number: 0});
     const {t} = useTranslation();
     const {id} = useParams(); //to take current survey id
+    let lastQuestionId = 0;
+    if( questionPage.content.length > 0){
+        const lastQuestionIndex = questionPage.content.length - 1;
+        lastQuestionId = questionPage.content[lastQuestionIndex].id;
+    }
     
-
     const path = `/api/1.0/surveys/${id}/questions?page=`;
-    const pendingApiCall = useApiProgress('get', path);
+    const initialProgress = useApiProgress('get', path);
+    const laterProgress = useApiProgress('get', `/api/1.0/surveys/${id}/questions/${lastQuestionId}`, true);
 
     useEffect(() =>{
 
@@ -38,8 +43,6 @@ const QuestionFeed = () => {
     
 
     const loadOldQuestions = async () => {
-        const lastQuestionIndex = questionPage.content.length - 1;
-        const lastQuestionId = questionPage.content[lastQuestionIndex].id;
         const response = await getOldQuestions(id, lastQuestionId);
         setQuestionPage(previousQuestionPage=>({
             ...response.data,
@@ -50,7 +53,7 @@ const QuestionFeed = () => {
     const {content, last} = questionPage;
 
     if(content.length === 0){
-        return <div className="alert alert-secondary text-center">{pendingApiCall ? <Spinner /> : t('There are no questions! Would you like to add?')}</div>
+        return <div className="alert alert-secondary text-center">{initialProgress ? <Spinner /> : t('There are no questions! Would you like to add?')}</div>
     }
 
     return (
@@ -59,9 +62,9 @@ const QuestionFeed = () => {
                 return <QuestionView key ={question.id} question={question} />;
             })}
             {!last && <div className="alert alert-secondary text-center"
-            style={{ cursor: pendingApiCall ? 'not-allowed' : 'pointer'}}
-             onClick={pendingApiCall ? () => {} : ()=> loadOldQuestions()}>
-                {pendingApiCall ? <Spinner /> : t('Load More Questions')}</div>}
+            style={{ cursor: laterProgress ? 'not-allowed' : 'pointer'}}
+             onClick={laterProgress ? () => {} : ()=> loadOldQuestions()}>
+                {laterProgress ? <Spinner /> : t('Load More Questions')}</div>}
         </div>
     );
 };
