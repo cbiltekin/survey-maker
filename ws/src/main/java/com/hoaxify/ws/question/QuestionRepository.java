@@ -19,5 +19,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	List <Question> findByIdGreaterThanAndSurvey(long id, Survey survey, Sort sort);
 	
 	long countByIdGreaterThanAndSurvey(long id, Survey survey);
+	
+	Question findById(long id);
 
 }

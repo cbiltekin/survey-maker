@@ -65,3 +65,8 @@ export const getNewQuestionCount = (id, qId) => {
 export const getNewQuestions = (id, qId) => {
   return axios.get(`/api/1.0/surveys/${id}/questions/${qId}?direction=after`);
 }
+
+//draft question put request
+export const updateQuestion = (qId, body) => {
+  return axios.put(`/api/1.0/question/${qId}`, body);
+}

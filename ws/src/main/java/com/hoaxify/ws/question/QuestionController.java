@@ -16,11 +16,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.question.vm.QuestionVM;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
@@ -66,6 +68,12 @@ public class QuestionController {
 		}
 		
 		return ResponseEntity.ok(qservice.getOldQuestionsOfSurvey(id, qId, page).map(QuestionVM::new));
+	}
+	
+	@PutMapping("/question/{qId}")
+	QuestionVM updateQuestion(@RequestBody QuestionUpdateVM updatedQ, @PathVariable long qId) {
+		Question q = qservice.updateQuestion(qId, updatedQ);
+		return new QuestionVM(q);
 	}
 	
 	

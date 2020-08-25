@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import com.hoaxify.ws.error.NotFoundException;
+import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.survey.Survey;
 import com.hoaxify.ws.survey.SurveyService;
 
@@ -47,6 +49,15 @@ public class QuestionService {
 	public long getNewQuestionsCount(long id, long qId) {
 		Survey inDB = surveyService.getById(id);
 		return qrepository.countByIdGreaterThanAndSurvey(qId, inDB);
+	}
+
+	public Question updateQuestion(long qId, QuestionUpdateVM updatedQ) {
+		Question q = qrepository.findById(qId);
+		if(q==null) {
+			throw new NotFoundException();
+		}
+		q.setName(updatedQ.getName());
+		return qrepository.save(q);
 	}
 
 }
