@@ -1,24 +1,18 @@
 import React from 'react';
-import * as Survey from "survey-react";
-import "survey-react/survey.css";
+// import * as Survey from "survey-react";
+// import "survey-react/survey.css";
 import {useState, useEffect} from 'react';
+import TextView from './TextView';
+import StarView from './StarView';
 
-const SurveyView = (props) => {
+const QuestionView = (props) => {
     const { question } = props;
-    const [isComplete, setComplete] = useState(false);
 
-    const onCompleteQ = () =>{
-        setComplete(true);  
-    };
-
-      var surv = <Survey.Survey json = {json}
-      onComplete = {onCompleteQ}/>
-
-    var json = {
-        elements: [
-          { type: question.type, name: question.name}
-        ]
-      }
+    if(question.type == "text"){
+      return <TextView key ={question.id} question={question}/>
+    } else if(question.type == "rating"){
+      return <StarView key ={question.id} question={question}/>
+    }
 
 
     return (
@@ -26,4 +20,4 @@ const SurveyView = (props) => {
     );
 };
 
-export default SurveyView;
+export default QuestionView;

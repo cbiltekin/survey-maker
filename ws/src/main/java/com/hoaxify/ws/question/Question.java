@@ -30,5 +30,6 @@ public class Question {
 	
 	@ManyToOne
 	private Survey survey;
+	
 		
 }

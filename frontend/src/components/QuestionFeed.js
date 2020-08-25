@@ -66,8 +66,6 @@ const QuestionFeed = () => {
 
     },[newQCount]);
 
-    
-
     const loadOldQuestions = async () => {
         const response = await getOldQuestions(id, lastQuestionId);
         setQuestionPage(previousQuestionPage=>({
@@ -84,6 +82,7 @@ const QuestionFeed = () => {
         }));
         setQCount(0);
     }
+
 
     const {content, last} = questionPage;
 
