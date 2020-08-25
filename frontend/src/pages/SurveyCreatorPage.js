@@ -17,7 +17,7 @@ const SurveyCreatorPage = (props) => {
     const [type, setType] = useState("radiogroup");
     const [errors, setErrors] = useState({});
     const[qVis, setQVis] = useState(false);
-    const[name, setName] = useState("Enter your question here.");
+    const[name, setName] = useState("Edit your question.");
 
     const {id} = useParams();
 
