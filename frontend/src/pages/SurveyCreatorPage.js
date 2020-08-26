@@ -81,7 +81,7 @@ const SurveyCreatorPage = (props) => {
 
   const onClickPublish = async () => {
     const body = {
-      isPublished: true
+      published: true
     }
 
     try {

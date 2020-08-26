@@ -7,7 +7,4 @@ public class SurveyUpdateVM {
 
 	private boolean isPublished;
 
-	public boolean getPublished() {
-		return isPublished;
-	}
 }

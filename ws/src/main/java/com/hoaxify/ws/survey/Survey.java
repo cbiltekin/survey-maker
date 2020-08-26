@@ -38,7 +38,4 @@ public class Survey {
 	@OneToMany(mappedBy = "survey")
 	private List<Question> questions;
 
-	public boolean getPublished() {
-		return isPublished;
-	}
 }

@@ -20,7 +20,7 @@ public class SurveyVM {
 		this.setId(survey.getId());
 		this.setSurveyName(survey.getSurveyName());
 		this.setUser(new UserVM(survey.getUser()));
-		this.setPublished(survey.getPublished());
+		this.setPublished(survey.isPublished());
 	}
 
 }

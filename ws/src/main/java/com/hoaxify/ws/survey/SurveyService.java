@@ -61,7 +61,7 @@ public class SurveyService {
 		if(inDB== null) {
 			throw new NotFoundException();
 		}
-		inDB.setPublished(updatedS.getPublished());
+		inDB.setPublished(updatedS.isPublished());
 		return surveyRepository.save(inDB);
 	}
 }
