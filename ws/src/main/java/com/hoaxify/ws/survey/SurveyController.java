@@ -44,6 +44,7 @@ public class SurveyController {
 		return surveyService.getSurveysOfUser(user.getUsername(), page).map(SurveyVM::new);
 	}
 	
+	//for draft
 	@GetMapping("/surveys/{id}")
 	SurveyVM getSurvey(@PathVariable long id, @CurrentUser User user) {
 		Survey inDB = surveyService.getById(id);
@@ -55,6 +56,20 @@ public class SurveyController {
 			throw new NotFoundException();
 		}
 	}
+	
+	//for answering
+	@GetMapping("/surveys/answer/{id}")
+	SurveyVM getSurveyToAnswer(@PathVariable long id) {
+		Survey inDB = surveyService.getById(id);
+		
+		if(inDB != null && inDB.isPublished()) {
+			return new SurveyVM(inDB);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
+	
 	
 	@GetMapping("/survey/{surveyName}")
 	SurveyVM getSurveyByName(@PathVariable String surveyName, @CurrentUser User user) {

@@ -8,7 +8,9 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import TopBar from '../components/TopBar';
 import { useSelector } from 'react-redux';
 import SurveyPage from '../pages/SurveyPage';
+import AnswerSurveyPage from '../pages/AnswerSurveyPage';
 import SurveyCreatorPage from '../pages/SurveyCreatorPage';
+import AdminPage from '../pages/AdminPage';
 
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/user/:username" component={UserPage} />
           {isLoggedIn && <Route path ="/mysurveys" component={SurveyPage} />}
           {isLoggedIn && <Route path ="/create/:id" component={SurveyCreatorPage} />}
+          {isLoggedIn && <Route path ="/answer/:id" component={AnswerSurveyPage} />}
+          {isLoggedIn && <Route path ="/surveyadmin/:id" component={AdminPage} />}
           <Redirect to="/" />
         </Switch>
       </Router>

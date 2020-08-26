@@ -75,3 +75,8 @@ export const updateQuestion = (qId, body) => {
 export const publishSurvey = (id, body) => {
   return axios.put(`/api/1.0/survey/${id}`, body);
 }
+
+//get survey to answer
+export const getSurveyToAnswer = (id) => {
+  return axios.get(`/api/1.0/surveys/answer/${id}`);
+}

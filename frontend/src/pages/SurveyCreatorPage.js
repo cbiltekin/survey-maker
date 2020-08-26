@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import * as Survey from "survey-react";
-import "survey-react/survey.css";
 import { getSurvey, addQuestion, publishSurvey } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
 import QuestionTypeBox from '../components/QuestionTypeBox';
@@ -8,18 +6,22 @@ import { Button} from 'antd';
 import QuestionFeed from '../components/QuestionFeed';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from '../shared/ApiProgress';
+import URLPopUp from '../components/URLPopUp';
+import { useHistory } from "react-router-dom";
 
 const SurveyCreatorPage = (props) => {
 
     const [survey, setSurvey] = useState();
-    const [isComplete, setComplete] = useState(false);
+    const [publish, setPublish] = useState(false);
     const [notFound, setNotFound] = useState(false);
     const [visible, setVisible] = useState(false);
     const [value, setValue] = useState(1);
     const [type, setType] = useState("radiogroup");
     const [errors, setErrors] = useState({});
-    const[qVis, setQVis] = useState(false);
     const[name, setName] = useState("Edit your question.");
+    const [popVis, setPopVis] = useState(true);
+
+    const history = useHistory();
 
 
     const {id} = useParams();
@@ -80,15 +82,22 @@ const SurveyCreatorPage = (props) => {
   }
 
   const onClickPublish = async () => {
+
     const body = {
       published: true
     }
 
     try {
         const response = await publishSurvey(id, body);
+        setPublish(true);
     } catch (error){
 
     }
+  }
+
+  const onClickOk = async () => {
+    setPopVis(false);
+    history.push(`/mysurveys`);
   }
 
   const pendingApiCall = useApiProgress('put', `/api/1.0/survey/${id}`);
@@ -124,6 +133,7 @@ const SurveyCreatorPage = (props) => {
             <QuestionFeed/>
             <ButtonWithProgress onClick = {onClickPublish} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
             text = "Publish!"/>
+            {publish && <URLPopUp id={id} onClick={onClickOk} visible={popVis}/>}
         </div>
     );
 
