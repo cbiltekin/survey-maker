@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
+import com.hoaxify.ws.survey.vm.SurveyUpdateVM;
 import com.hoaxify.ws.survey.vm.SurveyVM;
 import com.hoaxify.ws.user.User;
 
@@ -63,5 +65,11 @@ public class SurveyController {
 		else {
 			return new SurveyVM(inDB);
 		}
+	}
+	
+	@PutMapping("/survey/{id}")
+	SurveyVM updateSurvey(@RequestBody SurveyUpdateVM updatedS, @PathVariable long id) {
+		Survey survey = surveyService.updateSurvey(id, updatedS);
+		return new SurveyVM(survey);
 	}
 }

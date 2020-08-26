@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.hoaxify.ws.error.NotFoundException;
+import com.hoaxify.ws.survey.vm.SurveyUpdateVM;
+import com.hoaxify.ws.survey.vm.SurveyVM;
 import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserService;
 
@@ -50,5 +54,14 @@ public class SurveyService {
 			}
 		}
 		return null;
+	}
+
+	public Survey updateSurvey(long id, SurveyUpdateVM updatedS) {
+		Survey inDB = surveyRepository.findById(id);
+		if(inDB== null) {
+			throw new NotFoundException();
+		}
+		inDB.setPublished(updatedS.getPublished());
+		return surveyRepository.save(inDB);
 	}
 }

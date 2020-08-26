@@ -25,6 +25,8 @@ public class Survey {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	private boolean isPublished;
+	
 	@NotNull
 	@Size(min = 4, max=255)
 	@UniqueSurveyName
@@ -35,4 +37,8 @@ public class Survey {
 	
 	@OneToMany(mappedBy = "survey")
 	private List<Question> questions;
+
+	public boolean getPublished() {
+		return isPublished;
+	}
 }

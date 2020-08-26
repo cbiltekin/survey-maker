@@ -12,6 +12,7 @@ const SurveyPage = (props) => {
     const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
     const [survey, setSurvey] = useState();
+    const [isPublished, setIsPublished] = useState(false);
 
 
     useEffect(() => {
@@ -29,7 +30,8 @@ const SurveyPage = (props) => {
         const { push } = history;
 
         const body = {
-            surveyName
+            surveyName,
+            isPublished
         };
 
         try{

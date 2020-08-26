@@ -14,10 +14,13 @@ public class SurveyVM {
 	
 	private UserVM user;
 	
+	private boolean isPublished;
+	
 	public SurveyVM(Survey survey) {
 		this.setId(survey.getId());
 		this.setSurveyName(survey.getSurveyName());
 		this.setUser(new UserVM(survey.getUser()));
+		this.setPublished(survey.getPublished());
 	}
 
 }

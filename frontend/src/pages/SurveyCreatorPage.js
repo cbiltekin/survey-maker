@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
-import { getSurvey, addQuestion } from '../api/apiCalls';
+import { getSurvey, addQuestion, publishSurvey } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
 import QuestionTypeBox from '../components/QuestionTypeBox';
 import { Button} from 'antd';
 import QuestionFeed from '../components/QuestionFeed';
+import ButtonWithProgress from '../components/ButtonWithProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 
 const SurveyCreatorPage = (props) => {
 
@@ -18,6 +20,7 @@ const SurveyCreatorPage = (props) => {
     const [errors, setErrors] = useState({});
     const[qVis, setQVis] = useState(false);
     const[name, setName] = useState("Edit your question.");
+
 
     const {id} = useParams();
 
@@ -76,6 +79,20 @@ const SurveyCreatorPage = (props) => {
       }
   }
 
+  const onClickPublish = async () => {
+    const body = {
+      isPublished: true
+    }
+
+    try {
+        const response = await publishSurvey(id, body);
+    } catch (error){
+
+    }
+  }
+
+  const pendingApiCall = useApiProgress('put', `/api/1.0/survey/${id}`);
+
       if(notFound){
         return(
           <div className ="container">
@@ -105,6 +122,8 @@ const SurveyCreatorPage = (props) => {
           value = {value}
             />
             <QuestionFeed/>
+            <ButtonWithProgress onClick = {onClickPublish} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
+            text = "Publish!"/>
         </div>
     );
 

@@ -70,3 +70,8 @@ export const getNewQuestions = (id, qId) => {
 export const updateQuestion = (qId, body) => {
   return axios.put(`/api/1.0/question/${qId}`, body);
 }
+
+//change publish state of survey
+export const publishSurvey = (id, body) => {
+  return axios.put(`/api/1.0/survey/${id}`, body);
+}
