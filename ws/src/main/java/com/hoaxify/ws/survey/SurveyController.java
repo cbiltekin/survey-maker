@@ -82,6 +82,20 @@ public class SurveyController {
 		}
 	}
 	
+	//get published single survey
+	@GetMapping("/survey/{id}/admin")
+	SurveyVM getPublishedSurvey(@PathVariable long id, @CurrentUser User user) {
+		Survey inDB = surveyService.getById(id);
+		
+		if(inDB != null && inDB.isPublished() && inDB.getUser().getUsername().equals(user.getUsername())) {
+			return new SurveyVM(inDB);
+		}
+		else {
+			throw new NotFoundException();
+		}
+	}
+	
+	
 	@PutMapping("/survey/{id}")
 	SurveyVM updateSurvey(@RequestBody SurveyUpdateVM updatedS, @PathVariable long id) {
 		Survey survey = surveyService.updateSurvey(id, updatedS);
@@ -93,5 +107,6 @@ public class SurveyController {
 		Survey survey = surveyService.updateAnswered(id, user);
 		return new SurveyVM(survey);
 	}
+	
 	
 }
