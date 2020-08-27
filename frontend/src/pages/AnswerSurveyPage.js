@@ -3,6 +3,7 @@ import { getSurveyToAnswer } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import AnswerQuestionFeed from '../components/AnswerQuestionFeed';
 
 const AnswerSurveyPage = (props) => {
 
@@ -50,6 +51,7 @@ if(notFound){
         <div className ="container">
         {survey && <div>You are answering the survey: {survey.surveyName}</div>}
         {survey && <div>This survey was made by: {survey.user.displayName}</div>}
+        <AnswerQuestionFeed/>
 
             
         </div>
