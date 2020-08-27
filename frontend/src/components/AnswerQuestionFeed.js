@@ -43,7 +43,7 @@ const AnswerQuestionFeed = () => {
     return (
         <div>
             {content.map(question => {
-                return <AnswerQuestionView key ={question.id} question={question} />;
+                return <AnswerQuestionView key ={question.id} question={question}/>;
             })}
             {!last && <div className="alert alert-secondary text-center"
             style={{ cursor: initialProgress ? 'not-allowed' : 'pointer'}}

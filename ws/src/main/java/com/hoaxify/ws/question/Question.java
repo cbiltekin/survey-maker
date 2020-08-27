@@ -1,14 +1,18 @@
 package com.hoaxify.ws.question;
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.hoaxify.ws.answer.Answer;
 import com.hoaxify.ws.survey.Survey;
 
 import lombok.Data;
@@ -31,6 +35,9 @@ public class Question {
 	
 	@ManyToOne
 	private Survey survey;
+	
+	@OneToMany(mappedBy = "question")
+	private List<Answer> answers;
 	
 		
 }

@@ -9,10 +9,12 @@ const AnswerTextView = (props) => {
     const [question, setQuestion] = useState({});
     const { TextArea } = Input;
     const [value, setValue] = useState();
+    const [submitted, setSubmitted] =useState(false);
 
     useEffect( () => {
         setQuestion(props.question);
     },[props.question]);
+
 
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -27,6 +29,7 @@ const AnswerTextView = (props) => {
 
         try {
             await submitAnswer(answer);
+            setSubmitted(true);
 
         } catch (error) {
 
@@ -39,8 +42,8 @@ const AnswerTextView = (props) => {
         <div>
         {question.name}
         <div><TextArea rows={4} onChange={handleChange} value={value} /></div>
-        <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
-        text="Save My Answer" />
+        <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || submitted}
+        text="Save" />
         </div>
     );
 };

@@ -85,3 +85,8 @@ export const getSurveyToAnswer = (id) => {
 export const submitAnswer = (answer) => {
   return axios.post('/api/1.0/answers', answer);
 }
+
+//change answeredUsers list of survey
+export const addAnsweredUser = (id) => {
+  return axios.put(`/api/1.0/survey/${id}/answered`);
+}

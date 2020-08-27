@@ -87,4 +87,11 @@ public class SurveyController {
 		Survey survey = surveyService.updateSurvey(id, updatedS);
 		return new SurveyVM(survey);
 	}
+	
+	@PutMapping("/survey/{id}/answered")
+	SurveyVM updateAnswered(@PathVariable long id, @CurrentUser User user) {
+		Survey survey = surveyService.updateAnswered(id, user);
+		return new SurveyVM(survey);
+	}
+	
 }

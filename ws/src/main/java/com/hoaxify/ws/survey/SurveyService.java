@@ -64,4 +64,13 @@ public class SurveyService {
 		inDB.setPublished(updatedS.isPublished());
 		return surveyRepository.save(inDB);
 	}
+
+	public Survey updateAnswered(long id, User user) {
+		Survey inDB = surveyRepository.findById(id);
+		if(inDB== null) {
+			throw new NotFoundException();
+		}
+		inDB.addAnsweredUser(user);
+		return surveyRepository.save(inDB);
+	}
 }

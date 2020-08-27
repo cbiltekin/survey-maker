@@ -2,6 +2,7 @@ package com.hoaxify.ws.survey;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,5 +38,12 @@ public class Survey {
 	
 	@OneToMany(mappedBy = "survey")
 	private List<Question> questions;
-
+	
+	@ElementCollection(targetClass=User.class)
+	private List<User> answeredUsers;
+	
+	public boolean addAnsweredUser(User user) {
+		answeredUsers.add(user);
+		return true;
+	}
 }
