@@ -80,3 +80,8 @@ export const publishSurvey = (id, body) => {
 export const getSurveyToAnswer = (id) => {
   return axios.get(`/api/1.0/surveys/answer/${id}`);
 }
+
+//create answer/submit answer
+export const submitAnswer = (answer) => {
+  return axios.post('/api/1.0/answers', answer);
+}
