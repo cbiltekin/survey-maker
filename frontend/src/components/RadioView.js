@@ -1,44 +1,67 @@
-// import React, { useState } from 'react';
-// import { Button, Modal, Form, Input, Radio} from 'antd';
-// import ButtonWithProgress from '../components/ButtonWithProgress';
-// import { useApiProgress } from '../shared/ApiProgress';
+import React from 'react';
+import {useState, useEffect} from 'react';
+import { Input, Rate, Tooltip, Button } from 'antd';
+import ButtonWithProgress from '../components/ButtonWithProgress';
+import { updateQuestion, addChoice } from '../api/apiCalls';
+import { EditOutlined } from '@ant-design/icons';
+import { useApiProgress } from '../shared/ApiProgress';
 
+const RadioView = (props) => {
+    const [question, setQuestion] = useState({});
+    const [inEditMode, setInEditMode] = useState(false);
+    const [value, setValue] = useState();
 
+    useEffect( () => {
+        setQuestion(props.question);
+    },[props.question]);
 
-// const RadioView = (question) => {
-//     // const [option, setOption] = useState("");
-//     // const [choiceNu, setChoiceNu] = useState(1);
-
-//     // var choices = [];
-
-//     // onChange = (e) => {
-//     //     setOption(e.target.value);
-//     //     choices.push(options)
-
-//     // }
+    const onChange = (e) => {
+        setValue(e.target.value);
+    }
     
-//     // const radioStyle = {
-//     //     display: 'block',
-//     //     height: '30px',
-//     //     lineHeight: '30px',
-//     // };
-//     //     const { value } = this.state;
-//     //     return (
-//     //     <div><Radio.Group value={value}>
-//     //     <Radio style={radioStyle} value={1}>
-//     //     <Input placeholder= "Enter option here." value = {option} onChange={onChange}/>
-//     //     </Radio>
-//     //     <Radio style={radioStyle} value={2}>
-//     //       Option B
-//     //     </Radio>
-//     //     <Radio style={radioStyle} value={3}>
-//     //       Option C
-//     //     </Radio>
-//     //     <Radio style={radioStyle} value={4}>
-//     //       More...
-//     //       {value === 4 ? <Input style={{ width: 100, marginLeft: 10 }} /> : null}
-//     //     </Radio>
-//     //   </Radio.Group></div>
-//     //     );
+    const onClickSave = async () => {
+        const body = {
+            name: value
+        };
+    
+        try {
+            const response = await updateQuestion(question.id, body);
+            setInEditMode(false);
+            setQuestion(response.data);
+        } catch (error) {
+    
+        }
+    }
+    
+    const onClickEdit = async () => {
+        setInEditMode(true);
+    }
 
-// export default RadioView;
+    const onClickAddChoice = async () => {
+        const body2 = {
+            choices: "Sample Option"
+        };
+        
+        try {
+            const response = await addChoice(question.id, body2);
+            setQuestion(response.data);
+        } catch (error) {
+
+        }
+    }
+    
+    return (
+        <div>
+            <div>{!inEditMode && question.name}
+            {!inEditMode && <Tooltip title="search">
+            <Button type="primary" shape="square" icon={<EditOutlined />} onClick = {onClickEdit}/>
+            </Tooltip>}</div>
+            <Button type ="primary" onClick={onClickAddChoice}>Add Choices</Button>
+            {inEditMode && <Input placeholder= "Write your question here." onChange={onChange} value={value}/>}
+            <ButtonWithProgress onClick={onClickSave}
+            text="Save" />
+        </div>
+    );
+};
+
+export default RadioView;

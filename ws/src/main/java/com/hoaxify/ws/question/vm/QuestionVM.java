@@ -1,5 +1,7 @@
 package com.hoaxify.ws.question.vm;
 
+import java.util.List;
+
 import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.survey.vm.SurveyVM;
 import lombok.Data;
@@ -13,7 +15,7 @@ public class QuestionVM {
 	
 	private String name;
 	
-	private String [] choices;
+	private List<String> choices;
 	
 	private SurveyVM survey;
 

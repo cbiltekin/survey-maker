@@ -110,3 +110,8 @@ export const getTextResults = (qId) =>{
 export const getAQuestion = (qId) => {
   return axios.get(`/api/1.0/questions/${qId}`);
 }
+
+//add choices to radiogroup
+export const addChoice = (qId, body) => {
+  return axios.put(`/api/1.0/question/${qId}/choices`, body);
+}
