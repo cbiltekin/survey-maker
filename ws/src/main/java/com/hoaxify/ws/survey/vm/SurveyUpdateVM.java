@@ -3,6 +3,7 @@ package com.hoaxify.ws.survey.vm;
 import java.util.List;
 
 import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.user.vm.UserVM;
 
 import lombok.Data;
 
@@ -10,7 +11,5 @@ import lombok.Data;
 public class SurveyUpdateVM {
 
 	private boolean isPublished;
-	
-	private User answeredUser;
 
 }

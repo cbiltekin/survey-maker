@@ -1,16 +1,20 @@
 package com.hoaxify.ws.survey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.hoaxify.ws.answer.Answer;
 import com.hoaxify.ws.error.NotFoundException;
+import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.survey.vm.SurveyUpdateVM;
 import com.hoaxify.ws.survey.vm.SurveyVM;
 import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserService;
+import com.hoaxify.ws.user.vm.UserVM;
 
 @Service
 public class SurveyService {
@@ -65,12 +69,19 @@ public class SurveyService {
 		return surveyRepository.save(inDB);
 	}
 
-	public Survey updateAnswered(long id, User user) {
+	public List<UserVM> getAnsweredUsers(long id) {
 		Survey inDB = surveyRepository.findById(id);
-		if(inDB== null) {
-			throw new NotFoundException();
+		List<Question> questions = inDB.getQuestions();
+		List<UserVM> users = new ArrayList<UserVM>();
+		if(questions.size()!=0) {
+			Question firstQ = questions.get(0);
+			List<Answer> answers = firstQ.getAnswers();
+			for(Answer answer: answers) {
+				users.add(new UserVM(answer.getUser()));
+			}
 		}
-		inDB.addAnsweredUser(user);
-		return surveyRepository.save(inDB);
+		return users;
+		
 	}
+
 }

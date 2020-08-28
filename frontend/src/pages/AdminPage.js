@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { getAdminSurvey } from '../api/apiCalls';
+import { getAdminSurvey, getAnsweredUsers } from '../api/apiCalls';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from '../components/Spinner';
 import UserView from '../components/UserView';
@@ -10,6 +10,8 @@ import ResultFeed from '../components/ResultFeed';
 const AdminPage = (props) => {
     const [survey, setSurvey] = useState();
     const [notFound, setNotFound] = useState(false);
+    const [notFound2, setNotFound2] = useState(false);
+    const[users, setUsers] = useState({ userContent: []});
     const {id} = useParams();
 
     useEffect(()=>{
@@ -28,7 +30,24 @@ const AdminPage = (props) => {
         loadSurvey();
       }, [id]);
 
+      useEffect(()=>{
+
+        const loadUsers = async () => {
+          try {
+            const response = await getAnsweredUsers(id);
+            console.log("c2");
+            setUsers(({userContent: response.data}));
+            setNotFound2(false);
+          } catch (error) {
+            setNotFound2(true);
+          }
+        };
+  
+        loadUsers();
+      }, [survey]);
+
       const pendingApiCall = useApiProgress('get', `/api/1.0/survey/${id}/admin`);
+      const {userContent} = users;
 
 
 
@@ -42,7 +61,7 @@ const AdminPage = (props) => {
         );
       }
 
-      if(survey && survey.answeredUsers.length === 0){
+      if(survey && notFound2){
         return (
         <div className="alert alert-secondary text-center">{pendingApiCall ? <Spinner /> : 'There are no users that answered!'}</div>);
     }
@@ -50,7 +69,7 @@ const AdminPage = (props) => {
         <div className="container">
             Survey Name: {survey && survey.surveyName}
             <div>{survey && "Your survey is answered by following users:"}</div>
-            {survey && survey.answeredUsers.map(user => {
+            {survey && userContent.map(user => {
                 return <UserView key ={user.id} user={user} />;
             })}
             {survey && <ResultFeed/>}

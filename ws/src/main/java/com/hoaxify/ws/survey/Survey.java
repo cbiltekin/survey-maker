@@ -2,6 +2,7 @@ package com.hoaxify.ws.survey;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 
 import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.user.vm.UserVM;
 
 import javassist.SerialVersionUID;
 import lombok.Data;
@@ -39,11 +41,4 @@ public class Survey {
 	@OneToMany(mappedBy = "survey")
 	private List<Question> questions;
 	
-	@ElementCollection(targetClass=User.class)
-	private List<User> answeredUsers;
-	
-	public boolean addAnsweredUser(User user) {
-		answeredUsers.add(user);
-		return true;
-	}
 }

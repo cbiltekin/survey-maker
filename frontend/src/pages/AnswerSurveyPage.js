@@ -39,9 +39,7 @@ useEffect(()=>{
 }, [survey, id, indicator]);
 
 const onClickSave = async () => {
-
   try {
-    await addAnsweredUser(id);
     history.push(`/mysurveys`);
 } catch (error) {
 

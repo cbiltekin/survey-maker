@@ -1,13 +1,12 @@
 package com.hoaxify.ws.user.vm;
 
-
-
 import com.hoaxify.ws.user.User;
 
 import lombok.Data;
 
 @Data
 public class UserVM {
+	
 	private String username;
 	
 	private String displayName;

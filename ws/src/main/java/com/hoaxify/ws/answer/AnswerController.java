@@ -22,7 +22,6 @@ public class AnswerController {
 	public GenericResponse saveQuestion(@Valid @RequestBody Answer answer, @CurrentUser User user) {
 		answerService.save(answer, user);
 		return new GenericResponse("Answer is saved.");
-		
 	}
 	
 

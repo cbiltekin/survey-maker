@@ -86,11 +86,6 @@ export const submitAnswer = (answer) => {
   return axios.post('/api/1.0/answers', answer);
 }
 
-//change answeredUsers list of survey
-export const addAnsweredUser = (id) => {
-  return axios.put(`/api/1.0/survey/${id}/answered`);
-}
-
 //get single published survey for its corresponding admin page
 export const getAdminSurvey = (id) => {
   return axios.get(`/api/1.0/survey/${id}/admin`);
@@ -99,4 +94,9 @@ export const getAdminSurvey = (id) => {
 //get rating average
 export const getRatingAverage = (qId) => {
   return axios.get(`/api/1.0/questions/${qId}/rating`);
+}
+
+//get answered users
+export const getAnsweredUsers = (id) =>{
+  return axios.get(`/api/1.0/survey/${id}/answered`);
 }

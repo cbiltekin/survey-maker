@@ -19,14 +19,11 @@ public class SurveyVM {
 	
 	private boolean isPublished;
 	
-	private List<User> answeredUsers;
-	
 	public SurveyVM(Survey survey) {
 		this.setId(survey.getId());
 		this.setSurveyName(survey.getSurveyName());
 		this.setUser(new UserVM(survey.getUser()));
 		this.setPublished(survey.isPublished());
-		this.setAnsweredUsers(survey.getAnsweredUsers());
 	}
 
 }

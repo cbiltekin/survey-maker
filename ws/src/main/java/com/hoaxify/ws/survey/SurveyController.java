@@ -29,6 +29,7 @@ import com.hoaxify.ws.shared.GenericResponse;
 import com.hoaxify.ws.survey.vm.SurveyUpdateVM;
 import com.hoaxify.ws.survey.vm.SurveyVM;
 import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.user.vm.UserVM;
 
 @RestController
 @RequestMapping("/api/1.0")
@@ -100,17 +101,26 @@ public class SurveyController {
 		}
 	}
 	
+	@GetMapping("/survey/{id}/answered")
+	List<UserVM> getAnsweredUsers(@PathVariable long id){
+		List<UserVM> users = surveyService.getAnsweredUsers(id);
+		if(users.size()==0) {
+			throw new NotFoundException();
+		}
+		return users;
+	}
+	
 	@PutMapping("/survey/{id}")
 	SurveyVM updateSurvey(@RequestBody SurveyUpdateVM updatedS, @PathVariable long id) {
 		Survey survey = surveyService.updateSurvey(id, updatedS);
 		return new SurveyVM(survey);
 	}
 	
-	@PutMapping("/survey/{id}/answered")
-	SurveyVM updateAnswered(@PathVariable long id, @CurrentUser User user) {
-		Survey survey = surveyService.updateAnswered(id, user);
-		return new SurveyVM(survey);
-	}
+//	@PutMapping("/survey/{id}/answered")
+//	SurveyVM updateAnswered(@PathVariable long id, @CurrentUser User user) {
+//		Survey survey = surveyService.updateAnswered(id, user);
+//		return new SurveyVM(survey);
+//	}
 	
 	
 }
