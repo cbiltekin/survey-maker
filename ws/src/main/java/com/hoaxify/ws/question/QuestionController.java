@@ -49,6 +49,7 @@ public class QuestionController {
 		return qservice.getQuestionsOfSurvey(id, page).map(QuestionVM::new);
 	}
 	
+	
 	@GetMapping("/surveys/{id}/questions/{qId}")
 	ResponseEntity<?> getSurveyQuestions(@PathVariable long id, @PathVariable long qId, @PageableDefault(sort="id", direction = Direction.DESC) Pageable page,
 										@RequestParam(name="count", required = false, defaultValue = "false") boolean count,
@@ -68,6 +69,15 @@ public class QuestionController {
 		}
 		
 		return ResponseEntity.ok(qservice.getOldQuestionsOfSurvey(id, qId, page).map(QuestionVM::new));
+	}
+	
+	//rating average
+	@GetMapping("/questions/{qId}/rating") 
+	ResponseEntity<?> getRatingAverage(@PathVariable long qId){
+		long avRating = qservice.getAverage(qId);
+		Map<String, Long> response = new HashMap<>();
+		response.put("average", avRating);
+		return ResponseEntity.ok(response);
 	}
 	
 	@PutMapping("/question/{qId}")

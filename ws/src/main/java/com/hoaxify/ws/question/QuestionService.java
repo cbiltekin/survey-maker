@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import com.hoaxify.ws.answer.Answer;
 import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.survey.Survey;
@@ -58,6 +59,22 @@ public class QuestionService {
 		}
 		q.setName(updatedQ.getName());
 		return qrepository.save(q);
+	}
+
+	public long getAverage(long qId) {
+		Question q = qrepository.findById(qId);
+		long av = 0;
+		long rate; 
+		if(q==null) {
+			throw new NotFoundException();
+		}
+		List<Answer> answers = q.getAnswers();
+		for (Answer answer : answers ) {
+			rate = Long.parseLong(answer.getChoices());
+			av = av + rate;
+		}
+		av = av / (long) answers.size();
+		return av;
 	}
 
 }

@@ -30,11 +30,6 @@ public class WsApplication {
 			user2.setPassword("P4ssword2");
 			userService.save(user2);
 			
-			User user3 = new User();
-			user3.setUsername("user3");
-			user3.setDisplayName("display3");
-			user3.setPassword("P4ssword3");
-			userService.save(user3);
 		};
 	}
 	

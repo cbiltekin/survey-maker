@@ -4,6 +4,7 @@ import { getAdminSurvey } from '../api/apiCalls';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from '../components/Spinner';
 import UserView from '../components/UserView';
+import ResultFeed from '../components/ResultFeed';
 
 
 const AdminPage = (props) => {
@@ -52,6 +53,7 @@ const AdminPage = (props) => {
             {survey && survey.answeredUsers.map(user => {
                 return <UserView key ={user.id} user={user} />;
             })}
+            {survey && <ResultFeed/>}
         </div>
     );
 };

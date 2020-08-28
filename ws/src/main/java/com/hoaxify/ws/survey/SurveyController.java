@@ -1,5 +1,7 @@
 package com.hoaxify.ws.survey;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hoaxify.ws.answer.Answer;
+import com.hoaxify.ws.answer.vm.AnswerVM;
 import com.hoaxify.ws.error.NotFoundException;
+import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
 import com.hoaxify.ws.survey.vm.SurveyUpdateVM;
@@ -94,7 +99,6 @@ public class SurveyController {
 			throw new NotFoundException();
 		}
 	}
-	
 	
 	@PutMapping("/survey/{id}")
 	SurveyVM updateSurvey(@RequestBody SurveyUpdateVM updatedS, @PathVariable long id) {

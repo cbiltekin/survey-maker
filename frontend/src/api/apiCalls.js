@@ -95,3 +95,8 @@ export const addAnsweredUser = (id) => {
 export const getAdminSurvey = (id) => {
   return axios.get(`/api/1.0/survey/${id}/admin`);
 }
+
+//get rating average
+export const getRatingAverage = (qId) => {
+  return axios.get(`/api/1.0/questions/${qId}/rating`);
+}
