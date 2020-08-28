@@ -1,5 +1,6 @@
 package com.hoaxify.ws.question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -10,10 +11,12 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import com.hoaxify.ws.answer.Answer;
+import com.hoaxify.ws.answer.vm.AnswerVM;
 import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.survey.Survey;
 import com.hoaxify.ws.survey.SurveyService;
+import com.hoaxify.ws.user.User;
 
 @Service
 public class QuestionService {
@@ -77,4 +80,24 @@ public class QuestionService {
 		return av;
 	}
 
+	public List<AnswerVM> getTextAnswers(long qId) {
+		Question q = qrepository.findById(qId);
+		List<AnswerVM> texts = new ArrayList<AnswerVM>();
+		if(q==null|| !(q.getSurvey().isPublished())) {
+			throw new NotFoundException();
+		}
+		List<Answer> answers = q.getAnswers();
+		for (Answer answer : answers ) {
+			texts.add(new AnswerVM(answer));	
+		}
+		return texts;
+	}
+
+	public Question getQuestion(long qId, User user) {
+		Question q = qrepository.findById(qId);
+		if(q==null || q.getSurvey().getUser().getUsername()!=user.getUsername()) {
+			throw new NotFoundException();
+		}
+		return q;
+	}
 }

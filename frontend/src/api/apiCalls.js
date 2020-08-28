@@ -100,3 +100,13 @@ export const getRatingAverage = (qId) => {
 export const getAnsweredUsers = (id) =>{
   return axios.get(`/api/1.0/survey/${id}/answered`);
 }
+
+//get text answers
+export const getTextResults = (qId) =>{
+  return axios.get(`/api/1.0/questions/${qId}/textbox`);
+}
+
+//get single question
+export const getAQuestion = (qId) => {
+  return axios.get(`/api/1.0/questions/${qId}`);
+}

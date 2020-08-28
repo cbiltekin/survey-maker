@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hoaxify.ws.answer.vm.AnswerVM;
+import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.question.vm.QuestionVM;
 import com.hoaxify.ws.shared.CurrentUser;
@@ -78,6 +80,19 @@ public class QuestionController {
 		Map<String, Long> response = new HashMap<>();
 		response.put("average", avRating);
 		return ResponseEntity.ok(response);
+	}
+	
+	//textbox answers display
+	@GetMapping("/questions/{qId}/textbox")
+	List<AnswerVM> getTextAnswers(@PathVariable long qId){
+		List<AnswerVM> texts = qservice.getTextAnswers(qId);
+		return texts;
+	}
+	
+	//single question get
+	@GetMapping("/questions/{qId}")
+	QuestionVM getQuestion(@PathVariable long qId, @CurrentUser User user) {
+		return new QuestionVM(qservice.getQuestion(qId, user));
 	}
 	
 	@PutMapping("/question/{qId}")

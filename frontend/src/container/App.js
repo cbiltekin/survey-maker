@@ -11,6 +11,7 @@ import SurveyPage from '../pages/SurveyPage';
 import AnswerSurveyPage from '../pages/AnswerSurveyPage';
 import SurveyCreatorPage from '../pages/SurveyCreatorPage';
 import AdminPage from '../pages/AdminPage';
+import TextResultPage from '../pages/TextResultPage';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           {isLoggedIn && <Route path ="/create/:id" component={SurveyCreatorPage} />}
           {isLoggedIn && <Route path ="/answer/:id" component={AnswerSurveyPage} />}
           {isLoggedIn && <Route path ="/surveyadmin/:id" component={AdminPage} />}
+          {isLoggedIn && <Route path ="/textboxresults/:id" component={TextResultPage} />}
           <Redirect to="/" />
         </Switch>
       </Router>

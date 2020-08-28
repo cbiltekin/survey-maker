@@ -1,9 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ResultTextView = () => {
+const ResultTextView = (props) => {
+    const {question} = props;
     return (
-        <div>
-            Text
+        <div className="card p-1">
+            <Link
+                to={{
+                    pathname: `/textboxresults/${question.id}`,
+                }}
+            >You asked: {question.name}</Link>
         </div>
     );
 };
