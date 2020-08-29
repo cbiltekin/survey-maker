@@ -112,6 +112,6 @@ export const getAQuestion = (qId) => {
 }
 
 //add choices to radiogroup
-export const addChoice = (qId, body) => {
+export const updateChoices = (qId, body) => {
   return axios.put(`/api/1.0/question/${qId}/choices`, body);
 }

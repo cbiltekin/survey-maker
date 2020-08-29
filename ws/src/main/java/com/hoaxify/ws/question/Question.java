@@ -33,9 +33,7 @@ public class Question {
 	@Size(max=255)
 	private String name;
 	
-	@Column
-    @ElementCollection(targetClass=String.class)
-	private List<String> choices;
+	private String [] choices;
 	
 	@ManyToOne
 	private Survey survey;

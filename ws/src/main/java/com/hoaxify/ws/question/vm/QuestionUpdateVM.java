@@ -9,6 +9,6 @@ public class QuestionUpdateVM {
 	
 	private String name;
 	
-	private String choices;
+	private String [] choices;
 
 }

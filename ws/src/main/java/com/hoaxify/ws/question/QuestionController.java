@@ -103,8 +103,8 @@ public class QuestionController {
 	
 	//adding options for multiple choice
 	@PutMapping("question/{qId}/choices")
-	QuestionVM addChoices(@RequestBody QuestionUpdateVM updatedQ, @PathVariable long qId) {
-		Question q = qservice.addChoices(qId, updatedQ);
+	QuestionVM updateChoices(@RequestBody QuestionUpdateVM updatedQ, @PathVariable long qId) {
+		Question q = qservice.updateChoices(qId, updatedQ);
 		return new QuestionVM(q);
 	}
 	

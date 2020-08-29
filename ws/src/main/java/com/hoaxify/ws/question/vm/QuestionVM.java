@@ -15,7 +15,7 @@ public class QuestionVM {
 	
 	private String name;
 	
-	private List<String> choices;
+	private String [] choices;
 	
 	private SurveyVM survey;
 
