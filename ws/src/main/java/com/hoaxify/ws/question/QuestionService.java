@@ -101,13 +101,7 @@ public class QuestionService {
 		return q;
 	}
 
-	public Question updateChoices(long qId, QuestionUpdateVM updatedQ) {
-		Question q = qrepository.findById(qId);
-		if(q==null) {
-			throw new NotFoundException();
-		}
-		q.setChoices(updatedQ.getChoices());
-		return qrepository.save(q);
-		
+	public Question getById(long qId) {
+		return qrepository.findById(qId);
 	}
 }

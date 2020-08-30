@@ -8,9 +8,11 @@ const AnswerQuestionView = (props) => {
 
     if(question.type == "text"){
       return <AnswerTextView key ={question.id} question={question}/>
-    } else if(question.type == "rating"){
+    } else if (question.type == "rating"){
       return <AnswerStarView key ={question.id} question={question}/>
-    }
+    } //else if (question.type == "radiogroup"){
+    //   return <AnswerRadioView key ={question.id} question={question}/>
+    // }
     return (
         <div>{question.id}</div>
     );

@@ -15,8 +15,6 @@ public class QuestionVM {
 	
 	private String name;
 	
-	private String [] choices;
-	
 	private SurveyVM survey;
 
 	public QuestionVM(Question question) {
@@ -24,7 +22,6 @@ public class QuestionVM {
 		this.setId(question.getId());
 		this.setType(question.getType());
 		this.setName(question.getName());
-		this.setChoices(question.getChoices());
 		this.setSurvey(new SurveyVM(question.getSurvey()));
 	}
 }

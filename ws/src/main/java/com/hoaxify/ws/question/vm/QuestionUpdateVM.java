@@ -8,7 +8,5 @@ import lombok.Data;
 public class QuestionUpdateVM {
 	
 	private String name;
-	
-	private String [] choices;
 
 }

@@ -33,8 +33,6 @@ public class Question {
 	@Size(max=255)
 	private String name;
 	
-	private String [] choices;
-	
 	@ManyToOne
 	private Survey survey;
 	

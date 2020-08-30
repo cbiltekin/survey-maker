@@ -111,7 +111,32 @@ export const getAQuestion = (qId) => {
   return axios.get(`/api/1.0/questions/${qId}`);
 }
 
-//add choices to radiogroup
-export const updateChoices = (qId, body) => {
-  return axios.put(`/api/1.0/question/${qId}/choices`, body);
+export const addChoice = (choice) => {
+  return axios.post('/api/1.0/choices', choice);
+}
+
+//get choices of question in draft
+export const getChoices = (qId, page = 0) => {
+  const path = `/api/1.0/questions/${qId}/choices?page=`;
+  return axios.get( path + page);
+}
+
+//get old choices from given id
+export const getOldChoices = (qId, cId) => {
+  return axios.get(`/api/1.0/questions/${qId}/choices/${cId}`);
+}
+
+//new question count for specific survey
+export const getNewChoicesCount = (qId, cId) => {
+  return axios.get(`/api/1.0/questions/${qId}/choices/${cId}?count=true`);
+}
+
+//get new questions for update
+export const getNewChoices = (qId, cId) => {
+  return axios.get(`/api/1.0/questions/${qId}/choices/${cId}?direction=after`);
+}
+
+//update choice
+export const updateChoice = (cId, body) => {
+  return axios.put(`/api/1.0/choices/${cId}`, body);
 }
