@@ -14,10 +14,6 @@ const QuestionView = (props) => {
     } else if(question.type == "radiogroup"){
       return <RadioView key = {question.id} question = {question}/>
     }
-
-    return (
-        <div>{question.id}</div>
-    );
 };
 
 export default QuestionView;

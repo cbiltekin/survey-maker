@@ -14,9 +14,6 @@ const ResultView = (props) => {
     } else if (question.type == "radiogroup"){
       return <ResultRadioView key = {question.id} question ={question}/>
     }
-    return (
-        <div>{question.id}</div>
-    );
 };
 
 export default ResultView;

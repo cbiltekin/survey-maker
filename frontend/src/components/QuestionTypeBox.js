@@ -44,12 +44,9 @@ const QuestionTypeBox = ({ visible, onClick, onCancel, onChange, value }) => {
           Multiple Choice
         </Radio>
         <Radio style={radioStyle} value={2}>
-          CheckBox
-        </Radio>
-        <Radio style={radioStyle} value={3}>
           Star Rating
         </Radio>
-        <Radio style={radioStyle} value={4}>
+        <Radio style={radioStyle} value={3}>
           Text Box
         </Radio>
       </Radio.Group>

@@ -53,11 +53,9 @@ const SurveyCreatorPage = (props) => {
 
       if(event.target.value===1){
         setType("radiogroup");
-      } else if (event.target.value===2){
-        setType("checkbox");
-      } else if(event.target.value===3){
+      } else if(event.target.value===2){
         setType("rating");
-      } else if(event.target.value==4){
+      } else if(event.target.value==3){
         setType("text");
       }
     };
