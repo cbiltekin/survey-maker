@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.hoaxify.ws.choice.vm.ChoiceVM;
 import com.hoaxify.ws.question.Question;
 
 public interface ChoiceRepository extends JpaRepository<Choice, Long>  {
@@ -20,5 +21,7 @@ public interface ChoiceRepository extends JpaRepository<Choice, Long>  {
 	long countByIdGreaterThanAndQuestion(long id, Question question);
 	
 	Choice findById(long id);
+
+	List<Choice> findByQuestion(Question question);
 
 }

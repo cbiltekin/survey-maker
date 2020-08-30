@@ -42,8 +42,7 @@ const AdminPage = (props) => {
             setNotFound2(true);
           }
         };
-  
-        loadUsers();
+        loadUsers();  
       }, [survey]);
 
       const pendingApiCall = useApiProgress('get', `/api/1.0/survey/${id}/admin`);

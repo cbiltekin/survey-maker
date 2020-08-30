@@ -140,3 +140,13 @@ export const getNewChoices = (qId, cId) => {
 export const updateChoice = (cId, body) => {
   return axios.put(`/api/1.0/choices/${cId}`, body);
 }
+
+//get choices for answer results
+export const getAnsweredChoices = (qId) =>{
+  return axios.get(`/api/1.0/choices/${qId}/answered`);
+}
+
+//get choice ratio
+export const getChoiceRatio = (qId, cId) => {
+  return axios.get(`/api/1.0/admin/question/${qId}/choice/${cId}`);
+}

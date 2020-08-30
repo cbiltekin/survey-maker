@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.hoaxify.ws.answer.Answer;
 import com.hoaxify.ws.answer.AnswerRepository;
 import com.hoaxify.ws.choice.vm.ChoiceUpdateVM;
+import com.hoaxify.ws.choice.vm.ChoiceVM;
 import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.question.QuestionService;
@@ -67,6 +68,34 @@ public class ChoiceService {
 		}
 		choice.setName(updatedC.getName());
 		return choiceRepository.save(choice);
+	}
+
+
+	public List<Choice> getChoicesList(long qId) {
+		Question inDB = qService.getById(qId);
+		return choiceRepository.findByQuestion(inDB);
+	}
+
+
+	public long getChoiceRatio(long qId, String cId) {
+		Question inDB = qService.getById(qId);
+		int ansVal;
+		int choiceVal;
+		long choiceCount = 0;
+		List<Answer> answers = inDB.getAnswers();
+		
+		if(answers.size()==0) {
+			return 0;
+		}
+		
+		for(Answer answer: answers) {
+			ansVal = Integer.parseInt(answer.getChoices());
+			choiceVal = Integer.parseInt(cId);
+			if(ansVal==choiceVal) {
+				choiceCount++;
+			}
+		}
+		return (long) choiceCount / (long) answers.size();
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.hoaxify.ws.choice;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +27,14 @@ import com.hoaxify.ws.answer.Answer;
 import com.hoaxify.ws.answer.AnswerService;
 import com.hoaxify.ws.choice.vm.ChoiceUpdateVM;
 import com.hoaxify.ws.choice.vm.ChoiceVM;
+import com.hoaxify.ws.error.NotFoundException;
 import com.hoaxify.ws.question.Question;
 import com.hoaxify.ws.question.vm.QuestionUpdateVM;
 import com.hoaxify.ws.question.vm.QuestionVM;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
 import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.user.vm.UserVM;
 
 @RestController
 @RequestMapping("/api/1.0")
@@ -70,6 +73,27 @@ public class ChoiceController {
 		}
 		
 		return ResponseEntity.ok(choiceService.getOldChoicesOfQuestion(qId, cId, page).map(ChoiceVM::new));
+	}
+	
+	@GetMapping("/choices/{qId}/answered")
+	List<ChoiceVM> getChoicesList(@PathVariable long qId){
+		List<Choice> choices = choiceService.getChoicesList(qId);
+		List<ChoiceVM> choicesVM = new ArrayList<ChoiceVM>();
+		if(choices.size()==0) {
+			throw new NotFoundException();
+		}
+		for(Choice choice: choices) {
+			choicesVM.add(new ChoiceVM(choice));
+		}
+		return choicesVM;
+	}
+	
+	@GetMapping("/admin/question/{qId}/choice/{cId}")
+	ResponseEntity<?> getChoiceRatio(@PathVariable long qId, @PathVariable String cId){
+		long ratio = choiceService.getChoiceRatio(qId, cId);
+		Map<String, Long> response = new HashMap<>();
+		response.put("ratio", ratio);
+		return ResponseEntity.ok(response);
 	}
 	
 	@PutMapping("/choices/{cId}")
