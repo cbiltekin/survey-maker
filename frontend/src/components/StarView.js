@@ -7,7 +7,6 @@ import { EditOutlined } from '@ant-design/icons';
 import { useApiProgress } from '../shared/ApiProgress';
 
 const StarView = (props) => {
-//const { question } = props;
 const [value, setValue] = useState();
 const [inEditMode, setInEditMode] = useState(false);
 const [question, setQuestion] = useState({});
@@ -49,7 +48,7 @@ const pendingApiCall = useApiProgress('put', `/api/1.0/question/${question.id}`)
     </Tooltip>}</div>
         {inEditMode && <Input placeholder= "Write your question here." onChange={onChange} value={value}/>}
         <div><Rate/></div>
-        <ButtonWithProgress onClick={onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
+        <ButtonWithProgress onClick={onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || !value || !inEditMode}
         text="Save" />
         </div>
     );

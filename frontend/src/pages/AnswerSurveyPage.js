@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getSurveyToAnswer, addAnsweredUser } from '../api/apiCalls';
+import { getSurveyToAnswer } from '../api/apiCalls';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -62,10 +62,10 @@ if(notFound){
         {survey && <div>You are answering the survey: {survey.surveyName}</div>}
         {survey && <div>This survey was made by: {survey.user.displayName}</div>}
         <AnswerQuestionFeed/>
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
         <ButtonWithProgress onClick={onClickSave}
         text="Save My Answers" />
-
-            
+        </div>
         </div>
     );
 };

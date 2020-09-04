@@ -1,5 +1,6 @@
 package com.hoaxify.ws.question;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +77,10 @@ public class QuestionController {
 	//rating average
 	@GetMapping("/questions/{qId}/rating") 
 	ResponseEntity<?> getRatingAverage(@PathVariable long qId){
-		long avRating = qservice.getAverage(qId);
-		Map<String, Long> response = new HashMap<>();
-		response.put("average", avRating);
+		double avRating = qservice.getAverage(qId);
+		DecimalFormat df2 = new DecimalFormat("#.##");
+		Map<String, String> response = new HashMap<>();
+		response.put("average", df2.format(avRating));
 		return ResponseEntity.ok(response);
 	}
 	

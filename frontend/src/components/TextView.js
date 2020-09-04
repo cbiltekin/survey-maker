@@ -15,6 +15,7 @@ const { TextArea } = Input;
 
 useEffect( () => {
     setQuestion(props.question);
+    
 },[props.question]);
 
 const onChange = (e) => {
@@ -50,7 +51,7 @@ const pendingApiCall = useApiProgress('put', `/api/1.0/question/${question.id}`)
     </Tooltip>}</div>
     {inEditMode && <Input placeholder= "Write your question here." onChange={onChange} value={value}/>}
         <div><TextArea rows={4} /></div>
-        <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
+        <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || !value || !inEditMode}
         text="Save" />
         </div>
 

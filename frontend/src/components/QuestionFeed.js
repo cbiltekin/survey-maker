@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {getSurveys, getQuestions, getOldQuestions, getNewQuestionCount, getNewQuestions} from '../api/apiCalls';
+import {getQuestions, getOldQuestions, getNewQuestionCount, getNewQuestions} from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import QuestionView from './QuestionView';
 import { useApiProgress } from '../shared/ApiProgress';

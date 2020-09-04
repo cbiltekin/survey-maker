@@ -73,8 +73,8 @@ const AnswerRadioView = (props) => {
             style={{ cursor: pendingApiCall ? 'not-allowed' : 'pointer'}}
              onClick={pendingApiCall ? () => {} : ()=> loadChoices(number + 1)}>
                 {pendingApiCall ? <Spinner /> : t('Load More Choices')}</div>}
-            <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || submitted}
-        text="Save" />
+            <div><ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || submitted}
+        text="Save Answer" /></div>
         </div>
     );
 };

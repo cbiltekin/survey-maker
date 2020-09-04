@@ -77,11 +77,11 @@ public class ChoiceService {
 	}
 
 
-	public long getChoiceRatio(long qId, String cId) {
+	public double getChoiceRatio(long qId, String cId) {
 		Question inDB = qService.getById(qId);
 		int ansVal;
 		int choiceVal;
-		long choiceCount = 0;
+		double choiceCount = 0.0;
 		List<Answer> answers = inDB.getAnswers();
 		
 		if(answers.size()==0) {
@@ -95,7 +95,7 @@ public class ChoiceService {
 				choiceCount++;
 			}
 		}
-		return (long) choiceCount / (long) answers.size();
+		return (double) choiceCount / (double) answers.size();
 	}
 
 }

@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { getAdminSurvey, getAnsweredUsers, getTextResults, getAQuestion } from '../api/apiCalls';
+import { getTextResults, getAQuestion } from '../api/apiCalls';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from '../components/Spinner';
-import UserView from '../components/UserView';
-import ResultFeed from '../components/ResultFeed';
 import TextResult from '../components/TextResult';
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
 import TextView from './TextView';
 import StarView from './StarView';
 import RadioView from './RadioView';

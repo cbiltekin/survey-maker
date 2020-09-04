@@ -1,14 +1,13 @@
 import React from 'react';
 import {Radio} from 'antd';
 import { useEffect, useState } from 'react';
-import { Input, Rate, Tooltip, Button } from 'antd';
+import { Input, Tooltip, Button } from 'antd';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { updateChoice } from '../api/apiCalls';
 import { EditOutlined } from '@ant-design/icons';
 import { useApiProgress } from '../shared/ApiProgress';
 
 const ChoiceView = (props) => {
-    //const { choice } = props;
     const [value, setValue] = useState();
     const [inEditMode, setInEditMode] = useState(false);
 
@@ -49,14 +48,14 @@ const ChoiceView = (props) => {
         lineHeight: '30px',
       };
     return (
-        <div>
+        <div className = "container">
         <Radio style={radioStyle}>
           {!inEditMode && choice.name}
           {!inEditMode && <Tooltip title="search">
         <Button type="primary" shape="square" icon={<EditOutlined />} onClick = {onClickEdit}/>
     </Tooltip>}
         {inEditMode && <Input placeholder= "Write your option here." onChange={onChange} value={value}/>}
-        {inEditMode && <ButtonWithProgress onClick={onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall}
+        {inEditMode && <ButtonWithProgress onClick={onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || !value || !inEditMode}
         text="Save Option" />}
         </Radio>
         </div>

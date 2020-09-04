@@ -64,19 +64,19 @@ public class QuestionService {
 		return qrepository.save(q);
 	}
 
-	public long getAverage(long qId) {
+	public double getAverage(long qId) {
 		Question q = qrepository.findById(qId);
-		long av = 0;
-		long rate; 
+		double av = 0.0;
+		double rate; 
 		if(q==null) {
 			throw new NotFoundException();
 		}
 		List<Answer> answers = q.getAnswers();
 		for (Answer answer : answers ) {
-			rate = Long.parseLong(answer.getChoices());
+			rate = Double.parseDouble(answer.getChoices());
 			av = av + rate;
 		}
-		av = av / (long) answers.size();
+		av = av / (double) answers.size();
 		return av;
 	}
 

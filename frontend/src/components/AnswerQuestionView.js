@@ -1,5 +1,4 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
 import AnswerTextView from './AnswerTextView';
 import AnswerStarView from './AnswerStarView';
 import AnswerRadioView from './AnswerRadioView';

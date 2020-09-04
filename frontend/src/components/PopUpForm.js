@@ -3,8 +3,6 @@ import { Button, Modal, Form, Input} from 'antd';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from '../shared/ApiProgress';
 
-
-
 const PopUpForm = ({ visible, title, okText, label, name, errors, onClick, onCancel, onChange }) => {
   const [form] = Form.useForm();
   const pendingApiCall = useApiProgress('/api/1.0/surveys');

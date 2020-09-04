@@ -39,9 +39,9 @@ const AnswerStarView = (props) => {
     return (
         <div>
             {question.name}
-            <Rate onChange={handleChange} value={value}/>
+            <div><Rate onChange={handleChange} value={value}/></div>
             <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || submitted}
-        text="Save" />
+        text="Save Answer" />
         </div>
     );
 };

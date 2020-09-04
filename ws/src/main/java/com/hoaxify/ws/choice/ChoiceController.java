@@ -1,5 +1,6 @@
 package com.hoaxify.ws.choice;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,9 +91,10 @@ public class ChoiceController {
 	
 	@GetMapping("/admin/question/{qId}/choice/{cId}")
 	ResponseEntity<?> getChoiceRatio(@PathVariable long qId, @PathVariable String cId){
-		long ratio = choiceService.getChoiceRatio(qId, cId);
-		Map<String, Long> response = new HashMap<>();
-		response.put("ratio", ratio);
+		double ratio = choiceService.getChoiceRatio(qId, cId);
+		DecimalFormat df2 = new DecimalFormat("#.##");
+		Map<String, String> response = new HashMap<>();
+		response.put("ratio", df2.format(ratio));
 		return ResponseEntity.ok(response);
 	}
 	

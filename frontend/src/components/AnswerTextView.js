@@ -43,7 +43,7 @@ const AnswerTextView = (props) => {
         {question.name}
         <div><TextArea rows={4} onChange={handleChange} value={value} /></div>
         <ButtonWithProgress onClick = {onClickSave} pendingApiCall={pendingApiCall} disabled={pendingApiCall || submitted}
-        text="Save" />
+        text="Save Answer" />
         </div>
     );
 };

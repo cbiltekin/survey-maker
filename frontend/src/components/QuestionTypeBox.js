@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Modal, Form, Input, Radio} from 'antd';
+import React from 'react';
+import { Button, Modal, Radio} from 'antd';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from '../shared/ApiProgress';
-
-
 
 const QuestionTypeBox = ({ visible, onClick, onCancel, onChange, value }) => {
     const pendingApiCall = useApiProgress('/api/1.0/questions');

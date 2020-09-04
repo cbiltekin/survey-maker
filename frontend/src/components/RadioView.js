@@ -1,10 +1,9 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { Input, Rate, Tooltip, Button } from 'antd';
+import { Input, Tooltip, Button } from 'antd';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { updateQuestion, addChoice, updateChoices } from '../api/apiCalls';
 import { EditOutlined } from '@ant-design/icons';
-import { useApiProgress } from '../shared/ApiProgress';
 import ChoiceFeed from '../components/ChoiceFeed';
 
 const RadioView = (props) => {
@@ -71,7 +70,7 @@ const RadioView = (props) => {
           </Button>
           <ChoiceFeed question={question}/>
         <ButtonWithProgress onClick={onClickSave}
-        text="Save" />
+        text="Save" disabled={!value || !inEditMode}/>
         </div>
     );
 };

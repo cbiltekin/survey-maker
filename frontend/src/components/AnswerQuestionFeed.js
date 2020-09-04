@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {getQuestions} from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
-import SurveyView from './SurveyView';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from './Spinner';
 import { useParams } from 'react-router-dom';

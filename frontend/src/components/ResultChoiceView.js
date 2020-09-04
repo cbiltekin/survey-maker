@@ -1,14 +1,9 @@
 import React from 'react';
 import {Radio} from 'antd';
 import { useEffect, useState } from 'react';
-import { Input, Rate, Tooltip, Button } from 'antd';
-import ButtonWithProgress from '../components/ButtonWithProgress';
 import { getChoiceRatio } from '../api/apiCalls';
-import { EditOutlined } from '@ant-design/icons';
-import { useApiProgress } from '../shared/ApiProgress';
 
 const ResultChoiceView = (props) => {
-    //const { choice } = props;
     const [choice, setChoice] = useState({});
     const [ratio, setRatio] = useState();
 
